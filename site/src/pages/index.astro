@@ -2,17 +2,19 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const features = [
-  "Composable syntax designed for ambitious web products",
-  "Predictable compiler output and explicit control over generated JavaScript",
-  "A tight authoring loop with MDX-first documentation",
-  "WASM-powered Playground support for instant feedback",
-  "Focused runtime model with fewer framework-level surprises",
-  "Clear migration path from private alpha to public release"
+  "Small, deterministic grammar with strict EOL token rules",
+  "Safety-first semantics with explicit move/copy ownership operations",
+  "Function arguments are borrow-by-default with own and inout modes",
+  "GC-less by default with compiler-inferred lifetimes (no lifetime annotations)",
+  "ref, str, and slice are NonStorable views to prevent accidental retention",
+  "Option-first flow: no ?:, ?., or ?? operators",
+  "Compile-time const expr evaluation for values and const generics",
+  "Protocols, associated types, and some opaque return types"
 ];
 ---
 
 <BaseLayout
-  title="Nue | Focused Language for the Web"
+  title="Nue | Practical Language Design, Sharp Semantics"
   description="Official site for the Nue programming language."
 >
   <header class="topbar">
@@ -20,16 +22,16 @@ const features = [
     <nav class="topnav" aria-label="Main navigation">
       <a href="/docs/getting-started">Docs</a>
       <a href="/playground">Playground</a>
-      <a href="/docs/getting-started#roadmap">Roadmap</a>
+      <a href="/docs/getting-started#language-snapshot">Language</a>
     </nav>
   </header>
 
   <section class="hero">
-    <p class="eyebrow">A programming language for product teams</p>
-    <h1>Ship sharp software without the usual framework drag.</h1>
+    <p class="eyebrow">Small grammar. Strong guarantees.</p>
+    <h1>A practical language for reliable software.</h1>
     <p class="lead">
-      Nue is built for teams that want compiler-level power and a clean authoring flow. The
-      language and tooling stay small while your product surface grows.
+      Nue prioritizes deterministic parsing and explicit semantics. Ownership, borrowing, const
+      evaluation, and protocol-based abstraction are designed to stay predictable as systems grow.
     </p>
   </section>
 
@@ -45,7 +47,7 @@ const features = [
   </section>
 
   <section class="actions" aria-label="Primary actions">
-    <a class="button button-primary" href="/docs/getting-started">Read Getting Started</a>
+    <a class="button button-primary" href="/docs/getting-started">Read Language Snapshot</a>
     <a class="button button-ghost" href="/playground">Open Playground Notes</a>
   </section>
 
