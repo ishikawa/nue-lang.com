@@ -1,10 +1,12 @@
 ## Features
 
-- Ruby-ish but deterministic grammar with strict `EOL` token rules.
-- Explicit ownership with `move` and `copy`.
+- Ruby-ish syntax and deterministic grammar with strict `EOL` token rules.
+- Trailing blocks for clearer syntax with non-local returns and `break`/`continue`.
+- Ownership and explicit transfer with `move` and `copy`.
 - Function arguments are borrow-by-default, with `own` and `inout` when needed.
-- GC-less memory management with compiler-inferred lifetimes without annotations.
+- GC-less memory management with compiler-inferred lifetimes without annotations hassle.
 - Non storable view types: `ref`, `str`, and `slice`.
-- Disjoint unions.
+- Algebraic data types (ADTs) with first-class support for `enum` and `struct`.
+- Pattern matching with exhaustive checks and irrefutable patterns.
+- Generics, Protocols with associated types, and `some` opaque return types to keep abstractions precise.
 - Compile-time `const expr` evaluation for values and const generics.
-- Protocols, associated types, and `some` opaque return types to keep abstractions precise.

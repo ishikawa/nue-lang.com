@@ -127,7 +127,7 @@
   --ink-soft: #385067;
   --accent: #ef5b1b;
   --accent-dark: #c53a07;
-  --card: rgba(255, 255, 255, 0.68);
+  --card: rgba(255, 255, 255, 0.28);
   --card-edge: rgba(16, 32, 48, 0.14);
   --backdrop:
     radial-gradient(
