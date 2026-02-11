@@ -1,9 +1,18 @@
 @import "./themes.css";
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Sora:wght@500;600;700;800&display=swap");
+
+/*
+  Font combinations for theme experiments:
+  1. Sora + IBM Plex Sans + JetBrains Mono (active)
+  3. Space Grotesk + Public Sans + Fira Code
+  4. Zen Kaku Gothic New + Noto Sans JP + JetBrains Mono
+*/
 
 :root {
-  --font-display: "Avenir Next Condensed", "Franklin Gothic Medium", "Helvetica Neue", sans-serif;
-  --font-body: "Avenir Next", "Trebuchet MS", sans-serif;
-  --font-code: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  --font-display: "Sora", "Helvetica Neue", "Arial Nova", sans-serif;
+  --font-body: "IBM Plex Sans", "Avenir Next", "Trebuchet MS", sans-serif;
+  --font-code: "JetBrains Mono", "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono",
+    monospace;
 }
 
 *,
