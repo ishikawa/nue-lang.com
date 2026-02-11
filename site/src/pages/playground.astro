@@ -2,7 +2,10 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Playground | Nue" description="Playground implementation notes for Nue.">
+<BaseLayout
+  title="Playground | Nue"
+  description="Playground implementation notes for Nue."
+>
   <header class="topbar">
     <a class="brand" href="/">NUE</a>
     <nav class="topnav" aria-label="Main navigation">
@@ -15,8 +18,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <p class="eyebrow">Playground</p>
     <h1>WASM + React Playground</h1>
     <p class="lead">
-      Playground implementation is maintained outside this website repository and tracks compiler
-      behavior through browser-focused experiments.
+      Playground implementation is maintained outside this website repository
+      and tracks compiler behavior through browser-focused experiments.
     </p>
   </section>
 
@@ -24,13 +27,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <h2>Current location</h2>
     <p class="path-chip"><code>$HOME/Developer/Workspace/nue/web</code></p>
     <p>
-      Keep official site content in <code>site/</code>. Keep Playground runtime code in the path
-      above.
+      Keep official site content in <code>site/</code>. Keep Playground runtime
+      code in the path above.
     </p>
   </section>
 
   <section class="actions" aria-label="Navigation actions">
-    <a class="button button-primary" href="/docs/getting-started">Open setup docs</a>
+    <a class="button button-primary" href="/docs/getting-started"
+      >Open setup docs</a
+    >
     <a class="button button-ghost" href="/">Back to landing page</a>
   </section>
 </BaseLayout>

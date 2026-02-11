@@ -5,12 +5,24 @@
   --ink-soft: #5a4b40;
   --accent: #d5482f;
   --accent-dark: #8f2517;
-  --card: rgba(255, 255, 255, 0.62);
+  --card: rgba(255, 255, 255, 0.52);
   --card-edge: rgba(32, 22, 15, 0.12);
   --backdrop:
-    radial-gradient(circle at 20% 10%, rgba(237, 107, 70, 0.38) 0%, rgba(237, 107, 70, 0) 45%),
-    radial-gradient(circle at 90% 0%, rgba(221, 165, 63, 0.35) 0%, rgba(221, 165, 63, 0) 42%),
-    radial-gradient(circle at 15% 95%, rgba(81, 145, 116, 0.2) 0%, rgba(81, 145, 116, 0) 44%);
+    radial-gradient(
+      circle at 20% 10%,
+      rgba(237, 107, 70, 0.38) 0%,
+      rgba(237, 107, 70, 0) 45%
+    ),
+    radial-gradient(
+      circle at 90% 0%,
+      rgba(221, 165, 63, 0.35) 0%,
+      rgba(221, 165, 63, 0) 42%
+    ),
+    radial-gradient(
+      circle at 15% 95%,
+      rgba(81, 145, 116, 0.2) 0%,
+      rgba(81, 145, 116, 0) 44%
+    );
   --grain-pattern:
     linear-gradient(115deg, rgba(255, 255, 255, 0.06) 25%, transparent 25%),
     linear-gradient(295deg, rgba(255, 255, 255, 0.06) 25%, transparent 25%);
@@ -35,12 +47,24 @@
   --ink-soft: #355264;
   --accent: #0b7896;
   --accent-dark: #0a5c73;
-  --card: rgba(255, 255, 255, 0.67);
+  --card: rgba(255, 255, 255, 0.56);
   --card-edge: rgba(17, 36, 48, 0.12);
   --backdrop:
-    radial-gradient(circle at 15% 8%, rgba(82, 184, 212, 0.34) 0%, rgba(82, 184, 212, 0) 44%),
-    radial-gradient(circle at 95% 5%, rgba(73, 136, 177, 0.33) 0%, rgba(73, 136, 177, 0) 40%),
-    radial-gradient(circle at 15% 95%, rgba(84, 169, 142, 0.24) 0%, rgba(84, 169, 142, 0) 43%);
+    radial-gradient(
+      circle at 15% 8%,
+      rgba(82, 184, 212, 0.34) 0%,
+      rgba(82, 184, 212, 0) 44%
+    ),
+    radial-gradient(
+      circle at 95% 5%,
+      rgba(73, 136, 177, 0.33) 0%,
+      rgba(73, 136, 177, 0) 40%
+    ),
+    radial-gradient(
+      circle at 15% 95%,
+      rgba(84, 169, 142, 0.24) 0%,
+      rgba(84, 169, 142, 0) 43%
+    );
   --panel-shadow: 0 18px 35px rgba(41, 91, 113, 0.11);
   --doc-panel-shadow: 0 15px 30px rgba(41, 91, 113, 0.1);
   --button-primary-bg: linear-gradient(180deg, #1f9fc2 0%, #0f7f9d 100%);
@@ -61,12 +85,24 @@
   --ink-soft: #4f534f;
   --accent: #b4431f;
   --accent-dark: #7f2d16;
-  --card: rgba(255, 255, 255, 0.7);
+  --card: rgba(255, 255, 255, 0.58);
   --card-edge: rgba(29, 31, 30, 0.16);
   --backdrop:
-    radial-gradient(circle at 8% 5%, rgba(196, 180, 151, 0.26) 0%, rgba(196, 180, 151, 0) 40%),
-    radial-gradient(circle at 98% 4%, rgba(171, 152, 120, 0.24) 0%, rgba(171, 152, 120, 0) 39%),
-    radial-gradient(circle at 20% 96%, rgba(129, 157, 132, 0.18) 0%, rgba(129, 157, 132, 0) 42%);
+    radial-gradient(
+      circle at 8% 5%,
+      rgba(196, 180, 151, 0.26) 0%,
+      rgba(196, 180, 151, 0) 40%
+    ),
+    radial-gradient(
+      circle at 98% 4%,
+      rgba(171, 152, 120, 0.24) 0%,
+      rgba(171, 152, 120, 0) 39%
+    ),
+    radial-gradient(
+      circle at 20% 96%,
+      rgba(129, 157, 132, 0.18) 0%,
+      rgba(129, 157, 132, 0) 42%
+    );
   --grain-pattern:
     linear-gradient(115deg, rgba(87, 84, 75, 0.05) 25%, transparent 25%),
     linear-gradient(295deg, rgba(87, 84, 75, 0.05) 25%, transparent 25%);
@@ -91,13 +127,29 @@
   --ink-soft: #385067;
   --accent: #ef5b1b;
   --accent-dark: #c53a07;
-  --card: rgba(255, 255, 255, 0.82);
+  --card: rgba(255, 255, 255, 0.68);
   --card-edge: rgba(16, 32, 48, 0.14);
   --backdrop:
-    radial-gradient(circle at 8% 10%, rgba(239, 91, 27, 0.32) 0%, rgba(239, 91, 27, 0) 38%),
-    radial-gradient(circle at 95% 6%, rgba(255, 199, 0, 0.35) 0%, rgba(255, 199, 0, 0) 36%),
-    radial-gradient(circle at 18% 92%, rgba(0, 167, 111, 0.28) 0%, rgba(0, 167, 111, 0) 40%),
-    radial-gradient(circle at 90% 86%, rgba(0, 119, 255, 0.3) 0%, rgba(0, 119, 255, 0) 42%);
+    radial-gradient(
+      circle at 8% 10%,
+      rgba(239, 91, 27, 0.32) 0%,
+      rgba(239, 91, 27, 0) 38%
+    ),
+    radial-gradient(
+      circle at 95% 6%,
+      rgba(255, 199, 0, 0.35) 0%,
+      rgba(255, 199, 0, 0) 36%
+    ),
+    radial-gradient(
+      circle at 18% 92%,
+      rgba(0, 167, 111, 0.28) 0%,
+      rgba(0, 167, 111, 0) 40%
+    ),
+    radial-gradient(
+      circle at 90% 86%,
+      rgba(0, 119, 255, 0.3) 0%,
+      rgba(0, 119, 255, 0) 42%
+    );
   --grain-pattern:
     linear-gradient(115deg, rgba(16, 32, 48, 0.03) 25%, transparent 25%),
     linear-gradient(295deg, rgba(16, 32, 48, 0.03) 25%, transparent 25%);

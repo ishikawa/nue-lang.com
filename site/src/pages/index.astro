@@ -1,16 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-
-const features = [
-  "Small, deterministic grammar with strict EOL token rules",
-  "Safety-first semantics with explicit move/copy ownership operations",
-  "Function arguments are borrow-by-default with own and inout modes",
-  "GC-less by default with compiler-inferred lifetimes (no lifetime annotations)",
-  "ref, str, and slice are NonStorable views to prevent accidental retention",
-  "Option-first flow: no ?:, ?., or ?? operators",
-  "Compile-time const expr evaluation for values and const generics",
-  "Protocols, associated types, and some opaque return types"
-];
+import Features from "../sections/features.mdx";
 ---
 
 <BaseLayout
@@ -28,26 +18,22 @@ const features = [
 
   <section class="hero">
     <p class="eyebrow">Small grammar. Strong guarantees.</p>
-    <h1>A practical language for reliable software.</h1>
+    <h1>A new modern language for just fun.</h1>
     <p class="lead">
-      Nue prioritizes deterministic parsing and explicit semantics. Ownership, borrowing, const
-      evaluation, and protocol-based abstraction are designed to stay predictable as systems grow.
+      Nue prioritizes deterministic parsing and explicit semantics. Ownership,
+      borrowing, const evaluation, and protocol-based abstraction are designed
+      to stay predictable as systems grow.
     </p>
   </section>
 
   <section class="feature-panel" aria-labelledby="feature-title">
-    <h2 id="feature-title">Why teams are exploring Nue</h2>
-    <ul>
-      {
-        features.map((feature) => (
-          <li>{feature}</li>
-        ))
-      }
-    </ul>
+    <Features />
   </section>
 
   <section class="actions" aria-label="Primary actions">
-    <a class="button button-primary" href="/docs/getting-started">Read Language Snapshot</a>
+    <a class="button button-primary" href="/docs/getting-started"
+      >Read Language Snapshot</a
+    >
     <a class="button button-ghost" href="/playground">Open Playground Notes</a>
   </section>
 
@@ -57,7 +43,7 @@ const features = [
   </p>
 
   <footer class="site-footer">
-    <p>Built by the Nue team.</p>
+    <p>Built and maintained by me.</p>
     <form class="subscribe-form" action="#" method="post">
       <label for="email-input">Get monthly build notes</label>
       <div class="subscribe-row">
