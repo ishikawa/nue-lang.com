@@ -7,6 +7,15 @@ interface Props {
   pageClass?: string;
 }
 
+const supportedThemes = ["tuna", "fjord", "newsprint", "signal"] as const;
+const requestedTheme =
+  (
+    globalThis as { process?: { env?: Record<string, string | undefined> } }
+  ).process?.env?.PUBLIC_THEME?.toLowerCase() ?? "";
+const theme = (supportedThemes as readonly string[]).includes(requestedTheme)
+  ? requestedTheme
+  : "signal";
+
 const {
   title = "Nue",
   description = "Official site for the Nue programming language.",
@@ -15,7 +24,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme={theme}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

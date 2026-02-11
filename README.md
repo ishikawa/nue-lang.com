@@ -20,3 +20,15 @@ npm run dev
 cd site
 npm run build
 ```
+
+Theme can be selected at build time via `PUBLIC_THEME`:
+
+```bash
+cd site
+PUBLIC_THEME=tuna npm run build
+PUBLIC_THEME=fjord npm run build
+PUBLIC_THEME=newsprint npm run build
+PUBLIC_THEME=signal npm run build
+```
+
+If `PUBLIC_THEME` is omitted, `signal` is used.
