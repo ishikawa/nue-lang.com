@@ -1,0 +1,169 @@
+:root,
+[data-theme="tuna"] {
+  --bg-base: #f7f1e8;
+  --ink: #20160f;
+  --ink-soft: #5a4b40;
+  --accent: #d5482f;
+  --accent-dark: #8f2517;
+  --card: rgba(255, 255, 255, 0.52);
+  --card-edge: rgba(32, 22, 15, 0.12);
+  --backdrop:
+    radial-gradient(
+      circle at 20% 10%,
+      rgba(237, 107, 70, 0.38) 0%,
+      rgba(237, 107, 70, 0) 45%
+    ),
+    radial-gradient(
+      circle at 90% 0%,
+      rgba(221, 165, 63, 0.35) 0%,
+      rgba(221, 165, 63, 0) 42%
+    ),
+    radial-gradient(
+      circle at 15% 95%,
+      rgba(81, 145, 116, 0.2) 0%,
+      rgba(81, 145, 116, 0) 44%
+    );
+  --grain-pattern:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.06) 25%, transparent 25%),
+    linear-gradient(295deg, rgba(255, 255, 255, 0.06) 25%, transparent 25%);
+  --grain-opacity: 0.18;
+  --panel-shadow: 0 18px 35px rgba(112, 72, 26, 0.08);
+  --doc-panel-shadow: 0 15px 30px rgba(112, 72, 26, 0.08);
+  --button-primary-bg: linear-gradient(180deg, #e95538 0%, #cb3f25 100%);
+  --button-primary-ink: #fff8f6;
+  --button-primary-shadow: 0 10px 28px rgba(203, 63, 37, 0.24);
+  --button-ghost-bg: rgba(255, 255, 255, 0.5);
+  --code-bg: rgba(50, 30, 15, 0.09);
+  --doc-ink: #2d2219;
+  --doc-pre-bg: rgba(31, 22, 16, 0.9);
+  --doc-pre-ink: #f8f3ed;
+  --subscribe-btn-bg: #2a1e16;
+  --subscribe-btn-bg-hover: #3a2920;
+}
+
+[data-theme="fjord"] {
+  --bg-base: #e9f1f4;
+  --ink: #112430;
+  --ink-soft: #355264;
+  --accent: #0b7896;
+  --accent-dark: #0a5c73;
+  --card: rgba(255, 255, 255, 0.56);
+  --card-edge: rgba(17, 36, 48, 0.12);
+  --backdrop:
+    radial-gradient(
+      circle at 15% 8%,
+      rgba(82, 184, 212, 0.34) 0%,
+      rgba(82, 184, 212, 0) 44%
+    ),
+    radial-gradient(
+      circle at 95% 5%,
+      rgba(73, 136, 177, 0.33) 0%,
+      rgba(73, 136, 177, 0) 40%
+    ),
+    radial-gradient(
+      circle at 15% 95%,
+      rgba(84, 169, 142, 0.24) 0%,
+      rgba(84, 169, 142, 0) 43%
+    );
+  --panel-shadow: 0 18px 35px rgba(41, 91, 113, 0.11);
+  --doc-panel-shadow: 0 15px 30px rgba(41, 91, 113, 0.1);
+  --button-primary-bg: linear-gradient(180deg, #1f9fc2 0%, #0f7f9d 100%);
+  --button-primary-ink: #e7f6fb;
+  --button-primary-shadow: 0 10px 28px rgba(15, 127, 157, 0.24);
+  --button-ghost-bg: rgba(255, 255, 255, 0.57);
+  --code-bg: rgba(25, 60, 77, 0.12);
+  --doc-ink: #173141;
+  --doc-pre-bg: rgba(15, 40, 52, 0.94);
+  --doc-pre-ink: #e6f1f7;
+  --subscribe-btn-bg: #153746;
+  --subscribe-btn-bg-hover: #1a4659;
+}
+
+[data-theme="newsprint"] {
+  --bg-base: #f4f0e7;
+  --ink: #1d1f1e;
+  --ink-soft: #4f534f;
+  --accent: #b4431f;
+  --accent-dark: #7f2d16;
+  --card: rgba(255, 255, 255, 0.58);
+  --card-edge: rgba(29, 31, 30, 0.16);
+  --backdrop:
+    radial-gradient(
+      circle at 8% 5%,
+      rgba(196, 180, 151, 0.26) 0%,
+      rgba(196, 180, 151, 0) 40%
+    ),
+    radial-gradient(
+      circle at 98% 4%,
+      rgba(171, 152, 120, 0.24) 0%,
+      rgba(171, 152, 120, 0) 39%
+    ),
+    radial-gradient(
+      circle at 20% 96%,
+      rgba(129, 157, 132, 0.18) 0%,
+      rgba(129, 157, 132, 0) 42%
+    );
+  --grain-pattern:
+    linear-gradient(115deg, rgba(87, 84, 75, 0.05) 25%, transparent 25%),
+    linear-gradient(295deg, rgba(87, 84, 75, 0.05) 25%, transparent 25%);
+  --grain-opacity: 0.22;
+  --panel-shadow: 0 18px 35px rgba(66, 57, 41, 0.09);
+  --doc-panel-shadow: 0 15px 30px rgba(66, 57, 41, 0.08);
+  --button-primary-bg: linear-gradient(180deg, #c45a32 0%, #a43e1f 100%);
+  --button-primary-ink: #fff7f2;
+  --button-primary-shadow: 0 10px 28px rgba(164, 62, 31, 0.22);
+  --button-ghost-bg: rgba(255, 255, 255, 0.6);
+  --code-bg: rgba(43, 44, 37, 0.1);
+  --doc-ink: #282924;
+  --doc-pre-bg: rgba(35, 34, 29, 0.95);
+  --doc-pre-ink: #f0ece1;
+  --subscribe-btn-bg: #2f2a23;
+  --subscribe-btn-bg-hover: #3a342c;
+}
+
+[data-theme="signal"] {
+  --bg-base: #ffffff;
+  --ink: #102030;
+  --ink-soft: #385067;
+  --accent: #ef5b1b;
+  --accent-dark: #c53a07;
+  --card: rgba(255, 255, 255, 0.28);
+  --card-edge: rgba(16, 32, 48, 0.14);
+  --backdrop:
+    radial-gradient(
+      circle at 8% 10%,
+      rgba(239, 91, 27, 0.32) 0%,
+      rgba(239, 91, 27, 0) 38%
+    ),
+    radial-gradient(
+      circle at 95% 6%,
+      rgba(255, 199, 0, 0.35) 0%,
+      rgba(255, 199, 0, 0) 36%
+    ),
+    radial-gradient(
+      circle at 18% 92%,
+      rgba(0, 167, 111, 0.28) 0%,
+      rgba(0, 167, 111, 0) 40%
+    ),
+    radial-gradient(
+      circle at 90% 86%,
+      rgba(0, 119, 255, 0.3) 0%,
+      rgba(0, 119, 255, 0) 42%
+    );
+  --grain-pattern:
+    linear-gradient(115deg, rgba(16, 32, 48, 0.03) 25%, transparent 25%),
+    linear-gradient(295deg, rgba(16, 32, 48, 0.03) 25%, transparent 25%);
+  --grain-opacity: 0.14;
+  --panel-shadow: 0 20px 36px rgba(22, 68, 116, 0.09);
+  --doc-panel-shadow: 0 16px 30px rgba(22, 68, 116, 0.08);
+  --button-primary-bg: linear-gradient(180deg, #ff6b22 0%, #dc4c12 100%);
+  --button-primary-ink: #fffaf5;
+  --button-primary-shadow: 0 10px 28px rgba(220, 76, 18, 0.25);
+  --button-ghost-bg: rgba(255, 255, 255, 0.74);
+  --code-bg: rgba(0, 119, 255, 0.1);
+  --doc-ink: #183044;
+  --doc-pre-bg: rgba(12, 35, 56, 0.95);
+  --doc-pre-ink: #e7f1ff;
+  --subscribe-btn-bg: #0c67c2;
+  --subscribe-btn-bg-hover: #0a579f;
+}

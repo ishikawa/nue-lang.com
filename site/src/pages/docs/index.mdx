@@ -1,0 +1,49 @@
+---
+layout: ../../layouts/DocLayout.astro
+title: The Nue Programming Language 🐵🦝🐯🐍
+description: About Nue language design, status, and roadmap.
+---
+
+_Nue_ is designed for small grammar, deterministic syntax, and explicit semantics.
+
+## Language
+
+The language is under active development.
+
+### Syntax
+
+- Grammar is intentionally small and deterministic.
+- `EOL` is a real syntax token; parser behavior is strict by default.
+- Automatic `EOL` insertion exists, but only under explicit tokenizer rules.
+
+### Ownership and memory management
+
+- Ownership is explicit: use `move` and `copy` where ownership changes.
+- Function arguments are _borrow-by-default_; `own` consumes, `inout` is exclusive.
+- `ref`, `str`, and `slice` are _non-storable views_. They can be used temporarily, not stored.
+- Memory management is GC-less with compiler-inferred lifetimes.
+- Flexible shared/cyclic patterns are handled through explicit library/runtime mechanisms.
+
+### Types and abstraction
+
+- Protocols support associated types and default implementations.
+- Opaque result types are available through `some` in return position.
+- Const generics are supported via `const` parameters.
+
+## Roadmap
+
+There are no roadmap milestones yest, but the current focus areas are:
+
+- The compiler is in early alpha but is functional for core syntax, ownership, and types.
+- Standard library coverage is limited but expanding, focusing on protocols and collections.
+- Tooling such as formatter and language server are in work-in-progress.
+
+## FAQ
+
+Frequently Asked Questions about the Nue programming language.
+
+### Why the name "Nue"?
+
+Nue is pronounced “new” reflecting the idea of a completely new, home-brew programming language crafted from scratch.
+
+The name _Nue_ (written as the kanji "鵺" and pronounced "nue" in Japanese) also comes from Japanese folklore, referring to a chimera-like creature with the head of a monkey, the body of a tanuki, the legs of a tiger, and the tail of a snake. Inspired by this hybrid form, **Nue** is positioned as a personal exploration in language design—an attempt to bring together a range of techniques I’ve learned into a single, coherent language.

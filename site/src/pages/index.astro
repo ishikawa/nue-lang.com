@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Features from "../sections/features.mdx";
+---
+
+<BaseLayout
+  title="Nue | Practical Language Design, Sharp Semantics"
+  description="Official site for the Nue programming language."
+>
+  <header class="topbar">
+    <a class="brand" href="/">NUE</a>
+    <nav class="topnav" aria-label="Main navigation">
+      <a href="/docs/#language">Language</a>
+      <a href="/docs/#roadmap">Roadmap</a>
+      <a href="/docs/#faq">FAQ</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <p class="eyebrow">Deterministic, explicit, but never boring.</p>
+    <h1>A new modern language just for fun.</h1>
+    <p class="lead">
+      Nue prioritizes deterministic syntax and explicit semantics. Ownership,
+      borrowing, const evaluation, and protocol-based abstraction are designed
+      to stay predictable as systems grow.
+    </p>
+  </section>
+
+  <section class="feature-panel" aria-labelledby="feature-title">
+    <Features />
+  </section>
+
+  <section class="actions" aria-label="Primary actions">
+    <a class="button button-primary" href="/docs/">Read Documentation</a>
+  </section>
+
+  <footer class="site-footer">
+    <p>
+      Built and maintained by <a href="https://github.com/ishikawa"
+        >Takanori Ishikawa</a
+      >.
+    </p>
+  </footer>
+</BaseLayout>
