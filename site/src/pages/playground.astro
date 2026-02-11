@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Playground | Nue" description="Playground implementation notes for Nue.">
+  <header class="topbar">
+    <a class="brand" href="/">NUE</a>
+    <nav class="topnav" aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/docs/getting-started">Docs</a>
+    </nav>
+  </header>
+
+  <section class="hero hero-tight">
+    <p class="eyebrow">Playground</p>
+    <h1>WASM + React Playground implementation</h1>
+    <p class="lead">
+      The current Playground codebase is maintained separately from this website repository.
+    </p>
+  </section>
+
+  <section class="feature-panel">
+    <h2>Current location</h2>
+    <p class="path-chip"><code>$HOME/Developer/Workspace/nue/web</code></p>
+    <p>
+      Keep website content and product messaging in this repository under <code>site/</code>, and
+      keep Playground runtime work in the external path above.
+    </p>
+  </section>
+
+  <section class="actions" aria-label="Navigation actions">
+    <a class="button button-primary" href="/docs/getting-started">Open setup docs</a>
+    <a class="button button-ghost" href="/">Back to landing page</a>
+  </section>
+</BaseLayout>

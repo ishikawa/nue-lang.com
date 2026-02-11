@@ -1,0 +1,74 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const features = [
+  "Composable syntax designed for ambitious web products",
+  "Predictable compiler output and explicit control over generated JavaScript",
+  "A tight authoring loop with MDX-first documentation",
+  "WASM-powered Playground support for instant feedback",
+  "Focused runtime model with fewer framework-level surprises",
+  "Clear migration path from private alpha to public release"
+];
+---
+
+<BaseLayout
+  title="Nue | Focused Language for the Web"
+  description="Official site for the Nue programming language."
+>
+  <header class="topbar">
+    <a class="brand" href="/">NUE</a>
+    <nav class="topnav" aria-label="Main navigation">
+      <a href="/docs/getting-started">Docs</a>
+      <a href="/playground">Playground</a>
+      <a href="/docs/getting-started#roadmap">Roadmap</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <p class="eyebrow">A programming language for product teams</p>
+    <h1>Ship sharp software without the usual framework drag.</h1>
+    <p class="lead">
+      Nue is built for teams that want compiler-level power and a clean authoring flow. The
+      language and tooling stay small while your product surface grows.
+    </p>
+  </section>
+
+  <section class="feature-panel" aria-labelledby="feature-title">
+    <h2 id="feature-title">Why teams are exploring Nue</h2>
+    <ul>
+      {
+        features.map((feature) => (
+          <li>{feature}</li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="actions" aria-label="Primary actions">
+    <a class="button button-primary" href="/docs/getting-started">Read Getting Started</a>
+    <a class="button button-ghost" href="/playground">Open Playground Notes</a>
+  </section>
+
+  <p class="fine-print">
+    The compiler implementation currently lives in a private repository at
+    <code>$HOME/Developer/Workspace/nue</code>.
+  </p>
+
+  <footer class="site-footer">
+    <p>Built by the Nue team.</p>
+    <form class="subscribe-form" action="#" method="post">
+      <label for="email-input">Get monthly build notes</label>
+      <div class="subscribe-row">
+        <input
+          id="email-input"
+          name="email"
+          type="email"
+          placeholder="name@company.com"
+          autocomplete="email"
+          required
+        />
+        <button type="submit">Subscribe</button>
+      </div>
+    </form>
+  </footer>
+</BaseLayout>

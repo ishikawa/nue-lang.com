@@ -1,0 +1,25 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Nue documentation." } = Astro.props as Props;
+---
+
+<BaseLayout title={`${title} | Nue Docs`} description={description} pageClass="doc-page">
+  <header class="doc-header">
+    <a class="brand" href="/">NUE</a>
+    <nav class="topnav" aria-label="Documentation navigation">
+      <a href="/">Home</a>
+      <a href="/playground">Playground</a>
+    </nav>
+  </header>
+
+  <article class="doc-content">
+    <h1>{title}</h1>
+    <slot />
+  </article>
+</BaseLayout>
