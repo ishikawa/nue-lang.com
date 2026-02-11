@@ -12,15 +12,19 @@ interface Props {
 
 const { title, description, frontmatter } = Astro.props as Props;
 const resolvedTitle = title ?? frontmatter?.title ?? "Docs";
-const resolvedDescription = description ?? frontmatter?.description ?? "Nue documentation.";
+const resolvedDescription =
+  description ?? frontmatter?.description ?? "Nue documentation.";
 ---
 
-<BaseLayout title={`${resolvedTitle} | Nue Docs`} description={resolvedDescription} pageClass="doc-page">
+<BaseLayout
+  title={`${resolvedTitle} | Nue Docs`}
+  description={resolvedDescription}
+  pageClass="doc-page"
+>
   <header class="doc-header">
     <a class="brand" href="/">NUE</a>
     <nav class="topnav" aria-label="Documentation navigation">
       <a href="/">Home</a>
-      <a href="/playground">Playground</a>
     </nav>
   </header>
 
