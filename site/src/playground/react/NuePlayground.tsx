@@ -5,10 +5,7 @@ import {
   type PlaygroundRunResult,
 } from "../core";
 import { useMemo } from "react";
-import {
-  defaultNueEditorRenderer,
-  type NueEditorRenderer,
-} from "./editor";
+import { defaultNueEditorRenderer, type NueEditorRenderer } from "./editor";
 import { useNuePlayground } from "./useNuePlayground";
 import "./styles.css";
 
@@ -36,7 +33,10 @@ export interface NuePlaygroundProps {
 
 export function NuePlayground(props: NuePlaygroundProps) {
   const firstExample = props.examples?.[0];
-  const initialSource = props.initialSource ?? firstExample?.source ?? "def main() -> Int32 do\n  0\nend\n";
+  const initialSource =
+    props.initialSource ??
+    firstExample?.source ??
+    "def main() -> Int32 do\n  0\nend\n";
   const renderEditor = props.renderEditor ?? defaultNueEditorRenderer;
   const initialLimits = useMemo(
     () => mergeRunLimits(DEFAULT_PLAYGROUND_RUN_LIMITS, props.initialLimits),
@@ -87,10 +87,14 @@ export function NuePlayground(props: NuePlaygroundProps) {
   };
 
   return (
-    <section className={["nue-playground", props.className].filter(Boolean).join(" ")}>
+    <section
+      className={["nue-playground", props.className].filter(Boolean).join(" ")}
+    >
       <header className="nue-playground__header">
         <h2>{props.title ?? "Nue Playground"}</h2>
-        <p>{props.subtitle ?? "Run Nue code in-browser via wasm + Web Worker."}</p>
+        <p>
+          {props.subtitle ?? "Run Nue code in-browser via wasm + Web Worker."}
+        </p>
       </header>
 
       <div className="nue-playground__layout">
@@ -129,9 +133,15 @@ export function NuePlayground(props: NuePlaygroundProps) {
           <div className="nue-playground__limits">
             <LimitInput
               label="Timeout (sec)"
-              value={scaleDownLimit(playground.limits.timeoutMs, MILLISECONDS_PER_SECOND)}
+              value={scaleDownLimit(
+                playground.limits.timeoutMs,
+                MILLISECONDS_PER_SECOND,
+              )}
               onChange={(next) => {
-                playground.setLimit("timeoutMs", scaleUpLimit(next, MILLISECONDS_PER_SECOND));
+                playground.setLimit(
+                  "timeoutMs",
+                  scaleUpLimit(next, MILLISECONDS_PER_SECOND),
+                );
               }}
             />
             <LimitInput
@@ -150,9 +160,15 @@ export function NuePlayground(props: NuePlaygroundProps) {
             />
             <LimitInput
               label="Max memory (MB)"
-              value={scaleDownLimit(playground.limits.maxMemoryBytes, BYTES_PER_MB)}
+              value={scaleDownLimit(
+                playground.limits.maxMemoryBytes,
+                BYTES_PER_MB,
+              )}
               onChange={(next) => {
-                playground.setLimit("maxMemoryBytes", scaleUpLimit(next, BYTES_PER_MB));
+                playground.setLimit(
+                  "maxMemoryBytes",
+                  scaleUpLimit(next, BYTES_PER_MB),
+                );
               }}
             />
           </div>
@@ -163,7 +179,9 @@ export function NuePlayground(props: NuePlaygroundProps) {
               onClick={() => {
                 void run();
               }}
-              disabled={playground.status === "initializing" || playground.isRunning}
+              disabled={
+                playground.status === "initializing" || playground.isRunning
+              }
             >
               Run
             </button>
@@ -201,17 +219,6 @@ export function NuePlayground(props: NuePlaygroundProps) {
 
           <OutputPanel title="stdout" text={stdout} />
           <OutputPanel title="stderr / diagnostics" text={stderr} />
-
-          <div className="nue-playground__diag-list">
-            <strong>Structured diagnostics</strong>
-            {playground.result?.diagnostics.length ? (
-              playground.result.diagnostics.map((diagnostic, index) => (
-                <DiagnosticCard key={`${diagnostic.code ?? "diag"}-${index}`} diagnostic={diagnostic} />
-              ))
-            ) : (
-              <p className="nue-playground__empty">No diagnostics</p>
-            )}
-          </div>
         </div>
       </div>
     </section>
@@ -291,14 +298,20 @@ function parseLimitInput(raw: string): number | undefined {
   return Math.min(Math.floor(value), 0xffffffff);
 }
 
-function scaleDownLimit(value: number | undefined, scale: number): number | undefined {
+function scaleDownLimit(
+  value: number | undefined,
+  scale: number,
+): number | undefined {
   if (value == null) {
     return undefined;
   }
   return Math.max(1, Math.floor(value / scale));
 }
 
-function scaleUpLimit(value: number | undefined, scale: number): number | undefined {
+function scaleUpLimit(
+  value: number | undefined,
+  scale: number,
+): number | undefined {
   if (value == null) {
     return undefined;
   }
