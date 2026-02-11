@@ -1,0 +1,275 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+.nue-playground {
+  --nue-bg-a: #131821;
+  --nue-bg-b: #1b2430;
+  --nue-panel: rgba(26, 33, 44, 0.82);
+  --nue-border: rgba(224, 231, 239, 0.22);
+  --nue-text: #e6ebf2;
+  --nue-text-soft: #9aa8b8;
+  --nue-accent: #3e66d5;
+  --nue-accent-2: #177b9b;
+  --nue-danger: #f07b7b;
+  --nue-success: #67d7a3;
+  color: var(--nue-text);
+  border-radius: 22px;
+  border: 1px solid var(--nue-border);
+  background: radial-gradient(circle at 18% -22%, rgba(63, 102, 213, 0.28), transparent 52%),
+    radial-gradient(circle at 88% 112%, rgba(23, 123, 155, 0.22), transparent 50%),
+    linear-gradient(155deg, var(--nue-bg-a), var(--nue-bg-b));
+  padding: clamp(1rem, 3vw, 1.4rem);
+  font-family: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+  box-shadow: 0 22px 64px rgba(2, 4, 8, 0.62), 0 0 0 1px rgba(230, 235, 242, 0.08) inset;
+}
+
+.nue-playground__header h2 {
+  margin: 0;
+  font-size: clamp(1.2rem, 3vw, 1.7rem);
+}
+
+.nue-playground__header p {
+  margin: 0.4rem 0 1rem;
+  color: var(--nue-text-soft);
+}
+
+.nue-playground__layout {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: 1.08fr 0.92fr;
+}
+
+.nue-playground__panel {
+  border-radius: 16px;
+  border: 1px solid var(--nue-border);
+  background: var(--nue-panel);
+  backdrop-filter: blur(6px);
+  padding: 0.9rem;
+  box-shadow: 0 16px 34px rgba(3, 6, 10, 0.44);
+}
+
+.nue-playground__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.72rem;
+  font-size: 0.86rem;
+  color: var(--nue-text-soft);
+}
+
+.nue-playground select,
+.nue-playground input {
+  border-radius: 11px;
+  border: 1px solid rgba(230, 235, 242, 0.16);
+  background: rgba(17, 24, 33, 0.9);
+  color: var(--nue-text);
+  padding: 0.5rem 0.58rem;
+  font: inherit;
+}
+
+.nue-playground__editor-shell {
+  border-radius: 11px;
+  border: 1px solid rgba(230, 235, 242, 0.14);
+  background: rgba(9, 13, 18, 0.97);
+  overflow: hidden;
+}
+
+.nue-playground__editor-shell .cm-editor {
+  min-height: 320px;
+  background: rgba(9, 13, 18, 0.97);
+}
+
+.nue-playground__editor-shell .cm-gutters {
+  background: rgba(14, 18, 24, 0.95);
+  border-right: 1px solid rgba(230, 235, 242, 0.11);
+}
+
+.nue-playground__editor-shell .cm-scroller {
+  min-height: 320px;
+  font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.9rem;
+  line-height: 1.48;
+}
+
+.nue-playground__editor-fallback {
+  width: 100%;
+  min-height: 320px;
+  resize: vertical;
+  font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.9rem;
+  line-height: 1.48;
+  background: rgba(9, 13, 18, 0.97);
+  color: #e6ebf2;
+  border: none;
+  border-radius: 0;
+  padding: 0.72rem 0.78rem;
+}
+
+.nue-playground__editor-fallback:focus,
+.nue-playground__editor-shell .cm-editor.cm-focused,
+.nue-playground input:focus,
+.nue-playground select:focus,
+.nue-playground button:focus {
+  outline: 2px solid rgba(14, 143, 111, 0.34);
+  outline-offset: 1px;
+}
+
+.nue-playground__limits {
+  display: grid;
+  gap: 0.62rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.nue-playground__buttons {
+  margin-top: 0.6rem;
+  display: flex;
+  gap: 0.58rem;
+  flex-wrap: wrap;
+}
+
+.nue-playground button {
+  border: none;
+  border-radius: 999px;
+  padding: 0.56rem 0.94rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(112deg, var(--nue-accent), var(--nue-accent-2));
+}
+
+.nue-playground button.ghost {
+  color: var(--nue-text);
+  background: rgba(17, 22, 29, 0.9);
+  border: 1px solid rgba(230, 235, 242, 0.2);
+}
+
+.nue-playground button:disabled {
+  opacity: 0.62;
+  cursor: not-allowed;
+}
+
+.nue-playground__status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.nue-playground__badge {
+  border-radius: 999px;
+  padding: 0.24rem 0.58rem;
+  font-size: 0.73rem;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.nue-playground__badge.initializing,
+.nue-playground__badge.ready {
+  color: #cad4df;
+  background: rgba(154, 168, 184, 0.2);
+}
+
+.nue-playground__badge.running {
+  color: #fff;
+  background: linear-gradient(112deg, var(--nue-accent), var(--nue-accent-2));
+}
+
+.nue-playground__badge.error {
+  color: var(--nue-danger);
+  background: rgba(240, 123, 123, 0.15);
+}
+
+.nue-playground__message {
+  margin: 0.6rem 0 0.82rem;
+  color: var(--nue-text-soft);
+}
+
+.nue-playground__output + .nue-playground__output {
+  margin-top: 0.65rem;
+}
+
+.nue-playground__output strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--nue-text-soft);
+}
+
+.nue-playground__output pre {
+  margin: 0;
+  min-height: 76px;
+  max-height: 210px;
+  overflow: auto;
+  white-space: pre-wrap;
+  border-radius: 10px;
+  border: 1px solid rgba(230, 235, 242, 0.18);
+  background: rgba(15, 21, 30, 0.9);
+  padding: 0.62rem;
+  font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.84rem;
+}
+
+.nue-playground__diag-list {
+  margin-top: 0.75rem;
+  display: grid;
+  gap: 0.58rem;
+}
+
+.nue-playground__diag {
+  border-radius: 10px;
+  border: 1px solid rgba(230, 235, 242, 0.18);
+  background: rgba(16, 22, 31, 0.88);
+  padding: 0.56rem;
+}
+
+.nue-playground__diag-head {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.38rem;
+  text-transform: uppercase;
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
+.nue-playground__diag.error .nue-playground__diag-head {
+  color: var(--nue-danger);
+}
+
+.nue-playground__diag.warning .nue-playground__diag-head {
+  color: var(--nue-success);
+}
+
+.nue-playground__diag p {
+  margin: 0;
+}
+
+.nue-playground__diag small {
+  display: block;
+  margin-top: 0.36rem;
+  color: var(--nue-text-soft);
+}
+
+.nue-playground__diag code {
+  font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.72rem;
+  background: rgba(62, 102, 213, 0.2);
+  border-radius: 6px;
+  padding: 0.09rem 0.3rem;
+}
+
+.nue-playground__empty {
+  margin: 0;
+  color: var(--nue-text-soft);
+}
+
+@media (max-width: 1020px) {
+  .nue-playground__layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .nue-playground__limits {
+    grid-template-columns: 1fr;
+  }
+}
