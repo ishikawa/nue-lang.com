@@ -49,6 +49,7 @@ Setup once in repository settings:
 - `Settings > Pages > Source` to `GitHub Actions`
 
 `PUBLIC_SITE_BASE` is wired automatically by `actions/configure-pages` in CI.
+For custom domain deployment, `site/public/CNAME` is published as-is.
 
 ## Home Playground Embed
 

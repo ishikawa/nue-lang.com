@@ -7,8 +7,10 @@ function resolveWasmModuleUrl(): string {
   if (configured) {
     return configured;
   }
-  const base = import.meta.env.BASE_URL || "/";
-  return new URL(`${base}pkg/nue_wasm.js`, self.location.origin).toString();
+  const rawBase = import.meta.env.BASE_URL || "/";
+  const base = rawBase.endsWith("/") ? rawBase : `${rawBase}/`;
+  const baseUrl = new URL(base, self.location.origin);
+  return new URL("pkg/nue_wasm.js", baseUrl).toString();
 }
 
 registerPlaygroundWorker({
