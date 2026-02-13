@@ -98,7 +98,7 @@ export function NuePlayground(props: NuePlaygroundProps) {
       className={["nue-playground", props.className].filter(Boolean).join(" ")}
     >
       <div className="nue-playground__layout">
-        <div className="nue-playground__panel">
+        <div className="nue-playground__panel nue-playground__panel--result">
           {props.examples && props.examples.length > 0 ? (
             <label className="nue-playground__field">
               <span>Example</span>
@@ -129,49 +129,6 @@ export function NuePlayground(props: NuePlaygroundProps) {
               })}
             </div>
           </label>
-
-          <div className="nue-playground__limits">
-            <LimitInput
-              label="Timeout (sec)"
-              value={scaleDownLimit(
-                playground.limits.timeoutMs,
-                MILLISECONDS_PER_SECOND,
-              )}
-              onChange={(next) => {
-                playground.setLimit(
-                  "timeoutMs",
-                  scaleUpLimit(next, MILLISECONDS_PER_SECOND),
-                );
-              }}
-            />
-            <LimitInput
-              label="Max steps"
-              value={playground.limits.maxSteps}
-              onChange={(next) => {
-                playground.setLimit("maxSteps", next);
-              }}
-            />
-            <LimitInput
-              label="Max output lines"
-              value={playground.limits.maxOutputLines}
-              onChange={(next) => {
-                playground.setLimit("maxOutputLines", next);
-              }}
-            />
-            <LimitInput
-              label="Max memory (MB)"
-              value={scaleDownLimit(
-                playground.limits.maxMemoryBytes,
-                BYTES_PER_MB,
-              )}
-              onChange={(next) => {
-                playground.setLimit(
-                  "maxMemoryBytes",
-                  scaleUpLimit(next, BYTES_PER_MB),
-                );
-              }}
-            />
-          </div>
 
           <div className="nue-playground__buttons">
             <button
@@ -220,17 +177,65 @@ export function NuePlayground(props: NuePlaygroundProps) {
           </div>
         </div>
 
-        <div className="nue-playground__panel">
-          <div className="nue-playground__status-row">
-            <strong>Status</strong>
-            <span className={`nue-playground__badge ${playground.status}`}>
-              {playground.status}
-            </span>
+        <div className="nue-playground__panel nue-playground__panel--result">
+          <div className="nue-playground__status">
+            <div className="nue-playground__status-row">
+              <strong>Status</strong>
+              <span className={`nue-playground__badge ${playground.status}`}>
+                {playground.status}
+              </span>
+            </div>
+            <p className="nue-playground__message">{statusMessage}</p>
           </div>
-          <p className="nue-playground__message">{statusMessage}</p>
 
           <OutputPanel title="stdout" text={stdout} />
           <OutputPanel title="stderr / diagnostics" text={stderr} />
+
+          <div className="nue-playground__options">
+            <strong>Options</strong>
+            <div className="nue-playground__limits">
+              <LimitInput
+                label="Timeout (sec)"
+                value={scaleDownLimit(
+                  playground.limits.timeoutMs,
+                  MILLISECONDS_PER_SECOND,
+                )}
+                onChange={(next) => {
+                  playground.setLimit(
+                    "timeoutMs",
+                    scaleUpLimit(next, MILLISECONDS_PER_SECOND),
+                  );
+                }}
+              />
+              <LimitInput
+                label="Max steps"
+                value={playground.limits.maxSteps}
+                onChange={(next) => {
+                  playground.setLimit("maxSteps", next);
+                }}
+              />
+              <LimitInput
+                label="Max output lines"
+                value={playground.limits.maxOutputLines}
+                onChange={(next) => {
+                  playground.setLimit("maxOutputLines", next);
+                }}
+              />
+              <LimitInput
+                label="Max memory (MB)"
+                value={scaleDownLimit(
+                  playground.limits.maxMemoryBytes,
+                  BYTES_PER_MB,
+                )}
+                onChange={(next) => {
+                  playground.setLimit(
+                    "maxMemoryBytes",
+                    scaleUpLimit(next, BYTES_PER_MB),
+                  );
+                }}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>

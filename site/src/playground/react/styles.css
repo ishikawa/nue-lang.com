@@ -68,6 +68,12 @@
   box-shadow: var(--nue-panel-shadow);
 }
 
+.nue-playground__panel--result {
+  display: grid;
+  align-content: start;
+  gap: 1.08rem;
+}
+
 .nue-playground__field {
   display: flex;
   flex-direction: column;
@@ -206,12 +212,18 @@
 }
 
 .nue-playground__message {
-  margin: 0.6rem 0 0.82rem;
+  margin: 0.45rem 0 0;
   color: var(--nue-text-soft);
 }
 
-.nue-playground__output + .nue-playground__output {
-  margin-top: 0.65rem;
+.nue-playground__options {
+  margin: 0;
+}
+
+.nue-playground__options strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--nue-text-soft);
 }
 
 .nue-playground__output strong {
