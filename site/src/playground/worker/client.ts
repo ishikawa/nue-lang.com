@@ -1,11 +1,18 @@
-import type { PlaygroundRunRequest, PlaygroundRunResult } from "../core";
+import type {
+  PlaygroundFormatResult,
+  PlaygroundRunRequest,
+  PlaygroundRunResult,
+} from "../core";
 import type {
   PlaygroundWorkerEvent,
+  PlaygroundWorkerFormatMessage,
   PlaygroundWorkerMessage,
+  PlaygroundWorkerRunMessage,
 } from "./protocol";
 
 interface PendingRequest {
-  resolve: (result: PlaygroundRunResult) => void;
+  kind: "run" | "format";
+  resolve: (result: PlaygroundRunResult | PlaygroundFormatResult) => void;
   reject: (error: Error) => void;
 }
 
@@ -53,21 +60,50 @@ export class PlaygroundWorkerClient {
   }
 
   async run(request: PlaygroundRunRequest): Promise<PlaygroundRunResult> {
-    await this.init();
+    return this.requestRun<PlaygroundRunResult>({ kind: "run", request });
+  }
 
-    const requestId = String(++this.nextRequestNumber);
+  async format(source: string): Promise<PlaygroundFormatResult> {
+    return this.requestFormat<PlaygroundFormatResult>({ kind: "format", source });
+  }
+
+  private async requestRun<T extends PlaygroundRunResult>(
+    request: Omit<PlaygroundWorkerRunMessage, "requestId">,
+  ): Promise<T> {
+    await this.init();
+    return this.request<T, PlaygroundWorkerRunMessage>({ ...request, requestId: this.createRequestId() }, "run");
+  }
+
+  private async requestFormat<T extends PlaygroundFormatResult>(
+    request: Omit<PlaygroundWorkerFormatMessage, "requestId">,
+  ): Promise<T> {
+    await this.init();
+    return this.request<T, PlaygroundWorkerFormatMessage>({ ...request, requestId: this.createRequestId() }, "format");
+  }
+
+  private createRequestId(): string {
+    return String(++this.nextRequestNumber);
+  }
+
+  private request<T, TMessage extends PlaygroundWorkerMessage>(
+    message: TMessage & { requestId: string },
+    kind: "run" | "format",
+  ): Promise<T> {
+    const requestId = message.requestId;
     this.activeRequestId = requestId;
 
-    const result = await new Promise<PlaygroundRunResult>((resolve, reject) => {
-      this.pendingRequests.set(requestId, { resolve, reject });
-      this.postMessage({ kind: "run", requestId, request });
+    return new Promise<T>((resolve, reject) => {
+      this.pendingRequests.set(requestId, {
+        kind,
+        resolve: resolve as (result: PlaygroundRunResult | PlaygroundFormatResult) => void,
+        reject,
+      });
+      this.postMessage(message);
+    }).finally(() => {
+      if (this.activeRequestId === requestId) {
+        this.activeRequestId = undefined;
+      }
     });
-
-    if (this.activeRequestId === requestId) {
-      this.activeRequestId = undefined;
-    }
-
-    return result;
   }
 
   cancelActiveRun(): void {
@@ -130,11 +166,25 @@ export class PlaygroundWorkerClient {
 
     if (event.kind === "result") {
       const pending = this.pendingRequests.get(event.requestId);
-      if (!pending) {
+      if (!pending || pending.kind !== "run") {
         return;
       }
+
       this.pendingRequests.delete(event.requestId);
-      pending.resolve(event.result);
+      const result = event.result as PlaygroundRunResult;
+      pending.resolve(result);
+      return;
+    }
+
+    if (event.kind === "format-result") {
+      const pending = this.pendingRequests.get(event.requestId);
+      if (!pending || pending.kind !== "format") {
+        return;
+      }
+
+      this.pendingRequests.delete(event.requestId);
+      const result = event.result as PlaygroundFormatResult;
+      pending.resolve(result);
       return;
     }
 

@@ -1,25 +1,48 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap");
 
 .nue-playground {
-  --nue-bg-a: #131821;
-  --nue-bg-b: #1b2430;
-  --nue-panel: rgba(26, 33, 44, 0.82);
-  --nue-border: rgba(224, 231, 239, 0.22);
-  --nue-text: #e6ebf2;
-  --nue-text-soft: #9aa8b8;
+  --nue-bg-a: #f7fbff;
+  --nue-bg-b: #eaf2fb;
+  --nue-panel: rgba(255, 255, 255, 0.84);
+  --nue-border: rgba(26, 54, 82, 0.16);
+  --nue-text: #13314b;
+  --nue-text-soft: #4f667b;
   --nue-accent: #3e66d5;
   --nue-accent-2: #177b9b;
-  --nue-danger: #f07b7b;
-  --nue-success: #67d7a3;
+  --nue-danger: #d45b65;
+  --nue-diagnostic: #9a6a0a;
+  --nue-success: #2f936a;
+  --nue-shell-bg: linear-gradient(180deg, var(--nue-bg-a), var(--nue-bg-b));
+  --nue-shell-shadow: none;
+  --nue-shell-ring: 0 0 0 1px rgba(19, 49, 75, 0.08) inset;
+  --nue-panel-shadow: none;
+  --nue-control-border: rgba(26, 54, 82, 0.2);
+  --nue-control-bg: rgba(255, 255, 255, 0.9);
+  --nue-editor-shell-border: rgba(26, 54, 82, 0.18);
+  --nue-editor-bg: rgba(246, 250, 255, 0.96);
+  --nue-editor-gutter-bg: rgba(234, 242, 251, 0.95);
+  --nue-editor-gutter-border: rgba(26, 54, 82, 0.14);
+  --nue-editor-fallback-ink: #13314b;
+  --nue-focus-outline: rgba(35, 137, 200, 0.36);
+  --nue-ghost-bg: rgba(245, 250, 255, 0.92);
+  --nue-ghost-border: rgba(26, 54, 82, 0.24);
+  --nue-muted-badge-ink: #4f667b;
+  --nue-muted-badge-bg: rgba(79, 102, 123, 0.18);
+  --nue-danger-bg: rgba(212, 91, 101, 0.14);
+  --nue-output-border: rgba(26, 54, 82, 0.18);
+  --nue-output-bg: rgba(248, 252, 255, 0.93);
+  --nue-output-height: 220px;
+  --nue-diag-border: rgba(26, 54, 82, 0.18);
+  --nue-diag-bg: rgba(246, 251, 255, 0.92);
+  --nue-code-bg: rgba(62, 102, 213, 0.16);
+  color-scheme: light;
   color: var(--nue-text);
   border-radius: 22px;
   border: 1px solid var(--nue-border);
-  background: radial-gradient(circle at 18% -22%, rgba(63, 102, 213, 0.28), transparent 52%),
-    radial-gradient(circle at 88% 112%, rgba(23, 123, 155, 0.22), transparent 50%),
-    linear-gradient(155deg, var(--nue-bg-a), var(--nue-bg-b));
+  background: var(--nue-shell-bg);
   padding: clamp(1rem, 3vw, 1.4rem);
   font-family: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
-  box-shadow: 0 22px 64px rgba(2, 4, 8, 0.62), 0 0 0 1px rgba(230, 235, 242, 0.08) inset;
+  box-shadow: var(--nue-shell-shadow), var(--nue-shell-ring);
 }
 
 .nue-playground__header h2 {
@@ -35,7 +58,7 @@
 .nue-playground__layout {
   display: grid;
   gap: 0.9rem;
-  grid-template-columns: 1.08fr 0.92fr;
+  grid-template-columns: minmax(400px, 1.32fr) minmax(0, 0.68fr);
 }
 
 .nue-playground__panel {
@@ -44,7 +67,13 @@
   background: var(--nue-panel);
   backdrop-filter: blur(6px);
   padding: 0.9rem;
-  box-shadow: 0 16px 34px rgba(3, 6, 10, 0.44);
+  box-shadow: var(--nue-panel-shadow);
+}
+
+.nue-playground__panel--result {
+  display: grid;
+  align-content: start;
+  gap: 1.08rem;
 }
 
 .nue-playground__field {
@@ -59,8 +88,8 @@
 .nue-playground select,
 .nue-playground input {
   border-radius: 11px;
-  border: 1px solid rgba(230, 235, 242, 0.16);
-  background: rgba(17, 24, 33, 0.9);
+  border: 1px solid var(--nue-control-border);
+  background: var(--nue-control-bg);
   color: var(--nue-text);
   padding: 0.5rem 0.58rem;
   font: inherit;
@@ -68,19 +97,19 @@
 
 .nue-playground__editor-shell {
   border-radius: 11px;
-  border: 1px solid rgba(230, 235, 242, 0.14);
-  background: rgba(9, 13, 18, 0.97);
+  border: 1px solid var(--nue-editor-shell-border);
+  background: var(--nue-editor-bg);
   overflow: hidden;
 }
 
 .nue-playground__editor-shell .cm-editor {
   min-height: 320px;
-  background: rgba(9, 13, 18, 0.97);
+  background: var(--nue-editor-bg);
 }
 
 .nue-playground__editor-shell .cm-gutters {
-  background: rgba(14, 18, 24, 0.95);
-  border-right: 1px solid rgba(230, 235, 242, 0.11);
+  background: var(--nue-editor-gutter-bg);
+  border-right: 1px solid var(--nue-editor-gutter-border);
 }
 
 .nue-playground__editor-shell .cm-scroller {
@@ -88,6 +117,7 @@
   font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
   font-size: 0.9rem;
   line-height: 1.48;
+  overflow-x: hidden;
 }
 
 .nue-playground__editor-fallback {
@@ -97,8 +127,8 @@
   font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
   font-size: 0.9rem;
   line-height: 1.48;
-  background: rgba(9, 13, 18, 0.97);
-  color: #e6ebf2;
+  background: var(--nue-editor-bg);
+  color: var(--nue-editor-fallback-ink);
   border: none;
   border-radius: 0;
   padding: 0.72rem 0.78rem;
@@ -109,7 +139,7 @@
 .nue-playground input:focus,
 .nue-playground select:focus,
 .nue-playground button:focus {
-  outline: 2px solid rgba(14, 143, 111, 0.34);
+  outline: 2px solid var(--nue-focus-outline);
   outline-offset: 1px;
 }
 
@@ -138,8 +168,8 @@
 
 .nue-playground button.ghost {
   color: var(--nue-text);
-  background: rgba(17, 22, 29, 0.9);
-  border: 1px solid rgba(230, 235, 242, 0.2);
+  background: var(--nue-ghost-bg);
+  border: 1px solid var(--nue-ghost-border);
 }
 
 .nue-playground button:disabled {
@@ -165,8 +195,8 @@
 
 .nue-playground__badge.initializing,
 .nue-playground__badge.ready {
-  color: #cad4df;
-  background: rgba(154, 168, 184, 0.2);
+  color: var(--nue-muted-badge-ink);
+  background: var(--nue-muted-badge-bg);
 }
 
 .nue-playground__badge.running {
@@ -174,18 +204,29 @@
   background: linear-gradient(112deg, var(--nue-accent), var(--nue-accent-2));
 }
 
+.nue-playground__badge.formatting {
+  color: #fff;
+  background: linear-gradient(112deg, var(--nue-accent), var(--nue-accent-2));
+}
+
 .nue-playground__badge.error {
   color: var(--nue-danger);
-  background: rgba(240, 123, 123, 0.15);
+  background: var(--nue-danger-bg);
 }
 
 .nue-playground__message {
-  margin: 0.6rem 0 0.82rem;
+  margin: 0.45rem 0 0;
   color: var(--nue-text-soft);
 }
 
-.nue-playground__output + .nue-playground__output {
-  margin-top: 0.65rem;
+.nue-playground__options {
+  margin: 0;
+}
+
+.nue-playground__options strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--nue-text-soft);
 }
 
 .nue-playground__output strong {
@@ -196,16 +237,54 @@
 
 .nue-playground__output pre {
   margin: 0;
-  min-height: 76px;
-  max-height: 210px;
-  overflow: auto;
+  height: var(--nue-output-height);
+  min-height: var(--nue-output-height);
+  max-height: var(--nue-output-height);
+  overflow-y: auto;
+  overflow-x: hidden;
   white-space: pre-wrap;
   border-radius: 10px;
-  border: 1px solid rgba(230, 235, 242, 0.18);
-  background: rgba(15, 21, 30, 0.9);
+  border: 1px solid var(--nue-output-border);
+  background: var(--nue-output-bg);
   padding: 0.62rem;
   font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
   font-size: 0.84rem;
+}
+
+.nue-playground__event-line {
+  display: block;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.nue-playground__event-line + .nue-playground__event-line {
+  margin-top: 0.42rem;
+}
+
+.nue-playground__event-line.stdout {
+  color: var(--nue-text);
+}
+
+.nue-playground__event-line.stderr {
+  color: var(--nue-danger);
+}
+
+.nue-playground__event-line.diagnostic {
+  color: var(--nue-diagnostic);
+}
+
+.nue-playground__event-line.system {
+  color: var(--nue-text-soft);
+}
+
+.nue-playground__event-tag {
+  color: currentColor;
+  opacity: 0.78;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 0.45rem;
 }
 
 .nue-playground__diag-list {
@@ -216,8 +295,8 @@
 
 .nue-playground__diag {
   border-radius: 10px;
-  border: 1px solid rgba(230, 235, 242, 0.18);
-  background: rgba(16, 22, 31, 0.88);
+  border: 1px solid var(--nue-diag-border);
+  background: var(--nue-diag-bg);
   padding: 0.56rem;
 }
 
@@ -252,7 +331,7 @@
 .nue-playground__diag code {
   font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
   font-size: 0.72rem;
-  background: rgba(62, 102, 213, 0.2);
+  background: var(--nue-code-bg);
   border-radius: 6px;
   padding: 0.09rem 0.3rem;
 }
@@ -262,6 +341,46 @@
   color: var(--nue-text-soft);
 }
 
+@media (prefers-color-scheme: dark) {
+  .nue-playground {
+    --nue-bg-a: #131821;
+    --nue-bg-b: #1b2430;
+    --nue-panel: rgba(26, 33, 44, 0.82);
+    --nue-border: rgba(224, 231, 239, 0.22);
+    --nue-text: #e6ebf2;
+    --nue-text-soft: #9aa8b8;
+    --nue-danger: #f07b7b;
+    --nue-diagnostic: #f2c66d;
+    --nue-success: #67d7a3;
+    --nue-shell-bg:
+      radial-gradient(circle at 18% -22%, rgba(63, 102, 213, 0.28), transparent 52%),
+      radial-gradient(circle at 88% 112%, rgba(23, 123, 155, 0.22), transparent 50%),
+      linear-gradient(155deg, var(--nue-bg-a), var(--nue-bg-b));
+    --nue-shell-shadow: none;
+    --nue-shell-ring: 0 0 0 1px rgba(230, 235, 242, 0.08) inset;
+    --nue-panel-shadow: none;
+    --nue-control-border: rgba(230, 235, 242, 0.16);
+    --nue-control-bg: rgba(17, 24, 33, 0.9);
+    --nue-editor-shell-border: rgba(230, 235, 242, 0.14);
+    --nue-editor-bg: rgba(9, 13, 18, 0.97);
+    --nue-editor-gutter-bg: rgba(14, 18, 24, 0.95);
+    --nue-editor-gutter-border: rgba(230, 235, 242, 0.11);
+    --nue-editor-fallback-ink: #e6ebf2;
+    --nue-focus-outline: rgba(14, 143, 111, 0.34);
+    --nue-ghost-bg: rgba(17, 22, 29, 0.9);
+    --nue-ghost-border: rgba(230, 235, 242, 0.2);
+    --nue-muted-badge-ink: #cad4df;
+    --nue-muted-badge-bg: rgba(154, 168, 184, 0.2);
+    --nue-danger-bg: rgba(240, 123, 123, 0.15);
+    --nue-output-border: rgba(230, 235, 242, 0.18);
+    --nue-output-bg: rgba(15, 21, 30, 0.9);
+    --nue-diag-border: rgba(230, 235, 242, 0.18);
+    --nue-diag-bg: rgba(16, 22, 31, 0.88);
+    --nue-code-bg: rgba(62, 102, 213, 0.2);
+    color-scheme: dark;
+  }
+}
+
 @media (max-width: 1020px) {
   .nue-playground__layout {
     grid-template-columns: 1fr;
@@ -269,6 +388,10 @@
 }
 
 @media (max-width: 640px) {
+  .nue-playground {
+    --nue-output-height: 180px;
+  }
+
   .nue-playground__limits {
     grid-template-columns: 1fr;
   }

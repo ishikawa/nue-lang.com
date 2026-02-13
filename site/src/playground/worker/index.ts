@@ -9,6 +9,8 @@ export type {
   PlaygroundWorkerEvent,
   PlaygroundWorkerInitMessage,
   PlaygroundWorkerMessage,
+  PlaygroundWorkerFormatMessage,
+  PlaygroundWorkerFormatResultEvent,
   PlaygroundWorkerOptions,
   PlaygroundWorkerReadyEvent,
   PlaygroundWorkerResultEvent,

@@ -31,12 +31,19 @@ export interface NuePlaygroundProps {
   onRunResult?: (result: PlaygroundRunResult) => void;
 }
 
+type OutputStreamKind = "stdout" | "stderr" | "diagnostic" | "system";
+
+interface OutputStreamLine {
+  kind: OutputStreamKind;
+  text: string;
+}
+
 export function NuePlayground(props: NuePlaygroundProps) {
   const firstExample = props.examples?.[0];
   const initialSource =
     props.initialSource ??
     firstExample?.source ??
-    "def main() -> Int32 do\n  0\nend\n";
+    "def main() -> Int32 do\n    0\nend\n";
   const renderEditor = props.renderEditor ?? defaultNueEditorRenderer;
   const initialLimits = useMemo(
     () => mergeRunLimits(DEFAULT_PLAYGROUND_RUN_LIMITS, props.initialLimits),
@@ -56,6 +63,9 @@ export function NuePlayground(props: NuePlaygroundProps) {
     if (playground.status === "running") {
       return "Executing in worker...";
     }
+    if (playground.status === "formatting") {
+      return "Formatting source...";
+    }
     if (playground.status === "error") {
       return playground.error ?? "Execution failed";
     }
@@ -66,8 +76,10 @@ export function NuePlayground(props: NuePlaygroundProps) {
     return `status=${result.status} exit=${result.exitCode ?? "-"}`;
   }, [playground.error, playground.result, playground.status]);
 
-  const stdout = playground.result?.stdout ?? "";
-  const stderr = playground.result?.stderr || playground.result?.message || "";
+  const outputLines = useMemo(
+    () => buildOutputLines(playground.result),
+    [playground.result],
+  );
 
   const selectExample = (exampleId: string) => {
     const example = props.examples?.find((item) => item.id === exampleId);
@@ -86,17 +98,14 @@ export function NuePlayground(props: NuePlaygroundProps) {
     }
   };
 
+  const format = async () => {
+    await playground.format();
+  };
+
   return (
     <section
       className={["nue-playground", props.className].filter(Boolean).join(" ")}
     >
-      <header className="nue-playground__header">
-        <h2>{props.title ?? "Nue Playground"}</h2>
-        <p>
-          {props.subtitle ?? "Run Nue code in-browser via wasm + Web Worker."}
-        </p>
-      </header>
-
       <div className="nue-playground__layout">
         <div className="nue-playground__panel">
           {props.examples && props.examples.length > 0 ? (
@@ -130,49 +139,6 @@ export function NuePlayground(props: NuePlaygroundProps) {
             </div>
           </label>
 
-          <div className="nue-playground__limits">
-            <LimitInput
-              label="Timeout (sec)"
-              value={scaleDownLimit(
-                playground.limits.timeoutMs,
-                MILLISECONDS_PER_SECOND,
-              )}
-              onChange={(next) => {
-                playground.setLimit(
-                  "timeoutMs",
-                  scaleUpLimit(next, MILLISECONDS_PER_SECOND),
-                );
-              }}
-            />
-            <LimitInput
-              label="Max steps"
-              value={playground.limits.maxSteps}
-              onChange={(next) => {
-                playground.setLimit("maxSteps", next);
-              }}
-            />
-            <LimitInput
-              label="Max output lines"
-              value={playground.limits.maxOutputLines}
-              onChange={(next) => {
-                playground.setLimit("maxOutputLines", next);
-              }}
-            />
-            <LimitInput
-              label="Max memory (MB)"
-              value={scaleDownLimit(
-                playground.limits.maxMemoryBytes,
-                BYTES_PER_MB,
-              )}
-              onChange={(next) => {
-                playground.setLimit(
-                  "maxMemoryBytes",
-                  scaleUpLimit(next, BYTES_PER_MB),
-                );
-              }}
-            />
-          </div>
-
           <div className="nue-playground__buttons">
             <button
               type="button"
@@ -184,6 +150,18 @@ export function NuePlayground(props: NuePlaygroundProps) {
               }
             >
               Run
+            </button>
+            <button
+              type="button"
+              className="ghost"
+              onClick={() => {
+                void format();
+              }}
+              disabled={
+                playground.status === "initializing" || playground.isRunning
+              }
+            >
+              Format
             </button>
             <button
               type="button"
@@ -208,17 +186,64 @@ export function NuePlayground(props: NuePlaygroundProps) {
           </div>
         </div>
 
-        <div className="nue-playground__panel">
-          <div className="nue-playground__status-row">
-            <strong>Status</strong>
-            <span className={`nue-playground__badge ${playground.status}`}>
-              {playground.status}
-            </span>
+        <div className="nue-playground__panel nue-playground__panel--result">
+          <div className="nue-playground__status">
+            <div className="nue-playground__status-row">
+              <strong>Status</strong>
+              <span className={`nue-playground__badge ${playground.status}`}>
+                {playground.status}
+              </span>
+            </div>
+            <p className="nue-playground__message">{statusMessage}</p>
           </div>
-          <p className="nue-playground__message">{statusMessage}</p>
 
-          <OutputPanel title="stdout" text={stdout} />
-          <OutputPanel title="stderr / diagnostics" text={stderr} />
+          <OutputStreamPanel title="Output" lines={outputLines} />
+
+          <div className="nue-playground__options">
+            <strong>Options</strong>
+            <div className="nue-playground__limits">
+              <LimitInput
+                label="Timeout (sec)"
+                value={scaleDownLimit(
+                  playground.limits.timeoutMs,
+                  MILLISECONDS_PER_SECOND,
+                )}
+                onChange={(next) => {
+                  playground.setLimit(
+                    "timeoutMs",
+                    scaleUpLimit(next, MILLISECONDS_PER_SECOND),
+                  );
+                }}
+              />
+              <LimitInput
+                label="Max steps"
+                value={playground.limits.maxSteps}
+                onChange={(next) => {
+                  playground.setLimit("maxSteps", next);
+                }}
+              />
+              <LimitInput
+                label="Max output lines"
+                value={playground.limits.maxOutputLines}
+                onChange={(next) => {
+                  playground.setLimit("maxOutputLines", next);
+                }}
+              />
+              <LimitInput
+                label="Max memory (MB)"
+                value={scaleDownLimit(
+                  playground.limits.maxMemoryBytes,
+                  BYTES_PER_MB,
+                )}
+                onChange={(next) => {
+                  playground.setLimit(
+                    "maxMemoryBytes",
+                    scaleUpLimit(next, BYTES_PER_MB),
+                  );
+                }}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -257,16 +282,28 @@ function LimitInput(props: LimitInputProps) {
   );
 }
 
-interface OutputPanelProps {
+interface OutputStreamPanelProps {
   title: string;
-  text: string;
+  lines: OutputStreamLine[];
 }
 
-function OutputPanel(props: OutputPanelProps) {
+function OutputStreamPanel(props: OutputStreamPanelProps) {
   return (
     <div className="nue-playground__output">
       <strong>{props.title}</strong>
-      <pre>{props.text}</pre>
+      <pre>
+        {props.lines.map((line, index) => (
+          <span
+            key={`${line.kind}-${index}`}
+            className={`nue-playground__event-line ${line.kind}`}
+          >
+            <span className="nue-playground__event-tag">
+              [{outputStreamLabel(line.kind)}]
+            </span>
+            <span>{line.text}</span>
+          </span>
+        ))}
+      </pre>
     </div>
   );
 }
@@ -296,6 +333,51 @@ function parseLimitInput(raw: string): number | undefined {
     return undefined;
   }
   return Math.min(Math.floor(value), 0xffffffff);
+}
+
+function buildOutputLines(result: PlaygroundRunResult | null): OutputStreamLine[] {
+  if (!result) {
+    return [];
+  }
+
+  if (result.events.length > 0) {
+    const lines = result.events
+      .filter((event) => event.text.length > 0)
+      .map((event) => ({ kind: event.kind, text: event.text }));
+    if (lines.length > 0) {
+      if (result.message) {
+        const message = result.message;
+        if (!lines.some((line) => line.text.includes(message))) {
+          lines.push({ kind: "system", text: message });
+        }
+      }
+      return lines;
+    }
+  }
+
+  const fallback: OutputStreamLine[] = [];
+  if (result.stdout.length > 0) {
+    fallback.push({ kind: "stdout", text: result.stdout });
+  }
+  if (result.stderr.length > 0) {
+    fallback.push({ kind: "stderr", text: result.stderr });
+  } else if (result.message) {
+    fallback.push({ kind: "stderr", text: result.message });
+  }
+  return fallback;
+}
+
+function outputStreamLabel(kind: OutputStreamKind): string {
+  if (kind === "stderr") {
+    return "stderr";
+  }
+  if (kind === "diagnostic") {
+    return "diagnostic";
+  }
+  if (kind === "system") {
+    return "system";
+  }
+  return "stdout";
 }
 
 function scaleDownLimit(

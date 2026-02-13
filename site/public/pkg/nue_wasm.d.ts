@@ -2,6 +2,11 @@
 /* eslint-disable */
 
 /**
+ * Formats one source string using the shared formatter pipeline.
+ */
+export function format_playground(source: string): any;
+
+/**
  * Runs one Nue source file in the browser-friendly playground pipeline.
  *
  * This function is the wasm bridge used by `web/main.js`. It returns a plain
@@ -14,6 +19,7 @@ export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembl
 
 export interface InitOutput {
     readonly memory: WebAssembly.Memory;
+    readonly format_playground: (a: number, b: number) => any;
     readonly run_playground: (a: number, b: number, c: number, d: number, e: number, f: number) => any;
     readonly __wbindgen_malloc: (a: number, b: number) => number;
     readonly __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
