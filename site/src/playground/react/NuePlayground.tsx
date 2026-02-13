@@ -31,6 +31,13 @@ export interface NuePlaygroundProps {
   onRunResult?: (result: PlaygroundRunResult) => void;
 }
 
+type OutputStreamKind = "stdout" | "stderr" | "diagnostic" | "system";
+
+interface OutputStreamLine {
+  kind: OutputStreamKind;
+  text: string;
+}
+
 export function NuePlayground(props: NuePlaygroundProps) {
   const firstExample = props.examples?.[0];
   const initialSource =
@@ -69,8 +76,10 @@ export function NuePlayground(props: NuePlaygroundProps) {
     return `status=${result.status} exit=${result.exitCode ?? "-"}`;
   }, [playground.error, playground.result, playground.status]);
 
-  const stdout = playground.result?.stdout ?? "";
-  const stderr = playground.result?.stderr || playground.result?.message || "";
+  const outputLines = useMemo(
+    () => buildOutputLines(playground.result),
+    [playground.result],
+  );
 
   const selectExample = (exampleId: string) => {
     const example = props.examples?.find((item) => item.id === exampleId);
@@ -98,7 +107,7 @@ export function NuePlayground(props: NuePlaygroundProps) {
       className={["nue-playground", props.className].filter(Boolean).join(" ")}
     >
       <div className="nue-playground__layout">
-        <div className="nue-playground__panel nue-playground__panel--result">
+        <div className="nue-playground__panel">
           {props.examples && props.examples.length > 0 ? (
             <label className="nue-playground__field">
               <span>Example</span>
@@ -188,8 +197,7 @@ export function NuePlayground(props: NuePlaygroundProps) {
             <p className="nue-playground__message">{statusMessage}</p>
           </div>
 
-          <OutputPanel title="stdout" text={stdout} />
-          <OutputPanel title="stderr / diagnostics" text={stderr} />
+          <OutputStreamPanel title="Output" lines={outputLines} />
 
           <div className="nue-playground__options">
             <strong>Options</strong>
@@ -274,16 +282,28 @@ function LimitInput(props: LimitInputProps) {
   );
 }
 
-interface OutputPanelProps {
+interface OutputStreamPanelProps {
   title: string;
-  text: string;
+  lines: OutputStreamLine[];
 }
 
-function OutputPanel(props: OutputPanelProps) {
+function OutputStreamPanel(props: OutputStreamPanelProps) {
   return (
     <div className="nue-playground__output">
       <strong>{props.title}</strong>
-      <pre>{props.text}</pre>
+      <pre>
+        {props.lines.map((line, index) => (
+          <span
+            key={`${line.kind}-${index}`}
+            className={`nue-playground__event-line ${line.kind}`}
+          >
+            <span className="nue-playground__event-tag">
+              [{outputStreamLabel(line.kind)}]
+            </span>
+            <span>{line.text}</span>
+          </span>
+        ))}
+      </pre>
     </div>
   );
 }
@@ -313,6 +333,51 @@ function parseLimitInput(raw: string): number | undefined {
     return undefined;
   }
   return Math.min(Math.floor(value), 0xffffffff);
+}
+
+function buildOutputLines(result: PlaygroundRunResult | null): OutputStreamLine[] {
+  if (!result) {
+    return [];
+  }
+
+  if (result.events.length > 0) {
+    const lines = result.events
+      .filter((event) => event.text.length > 0)
+      .map((event) => ({ kind: event.kind, text: event.text }));
+    if (lines.length > 0) {
+      if (result.message) {
+        const message = result.message;
+        if (!lines.some((line) => line.text.includes(message))) {
+          lines.push({ kind: "system", text: message });
+        }
+      }
+      return lines;
+    }
+  }
+
+  const fallback: OutputStreamLine[] = [];
+  if (result.stdout.length > 0) {
+    fallback.push({ kind: "stdout", text: result.stdout });
+  }
+  if (result.stderr.length > 0) {
+    fallback.push({ kind: "stderr", text: result.stderr });
+  } else if (result.message) {
+    fallback.push({ kind: "stderr", text: result.message });
+  }
+  return fallback;
+}
+
+function outputStreamLabel(kind: OutputStreamKind): string {
+  if (kind === "stderr") {
+    return "stderr";
+  }
+  if (kind === "diagnostic") {
+    return "diagnostic";
+  }
+  if (kind === "system") {
+    return "system";
+  }
+  return "stdout";
 }
 
 function scaleDownLimit(

@@ -10,6 +10,7 @@
   --nue-accent: #3e66d5;
   --nue-accent-2: #177b9b;
   --nue-danger: #d45b65;
+  --nue-diagnostic: #9a6a0a;
   --nue-success: #2f936a;
   --nue-shell-bg: linear-gradient(180deg, var(--nue-bg-a), var(--nue-bg-b));
   --nue-shell-shadow: none;
@@ -30,6 +31,7 @@
   --nue-danger-bg: rgba(212, 91, 101, 0.14);
   --nue-output-border: rgba(26, 54, 82, 0.18);
   --nue-output-bg: rgba(248, 252, 255, 0.93);
+  --nue-output-height: 220px;
   --nue-diag-border: rgba(26, 54, 82, 0.18);
   --nue-diag-bg: rgba(246, 251, 255, 0.92);
   --nue-code-bg: rgba(62, 102, 213, 0.16);
@@ -234,9 +236,11 @@
 
 .nue-playground__output pre {
   margin: 0;
-  min-height: 76px;
-  max-height: 210px;
-  overflow: auto;
+  height: var(--nue-output-height);
+  min-height: var(--nue-output-height);
+  max-height: var(--nue-output-height);
+  overflow-y: auto;
+  overflow-x: hidden;
   white-space: pre-wrap;
   border-radius: 10px;
   border: 1px solid var(--nue-output-border);
@@ -244,6 +248,42 @@
   padding: 0.62rem;
   font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
   font-size: 0.84rem;
+}
+
+.nue-playground__event-line {
+  display: block;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.nue-playground__event-line + .nue-playground__event-line {
+  margin-top: 0.42rem;
+}
+
+.nue-playground__event-line.stdout {
+  color: var(--nue-text);
+}
+
+.nue-playground__event-line.stderr {
+  color: var(--nue-danger);
+}
+
+.nue-playground__event-line.diagnostic {
+  color: var(--nue-diagnostic);
+}
+
+.nue-playground__event-line.system {
+  color: var(--nue-text-soft);
+}
+
+.nue-playground__event-tag {
+  color: currentColor;
+  opacity: 0.78;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 0.45rem;
 }
 
 .nue-playground__diag-list {
@@ -309,6 +349,7 @@
     --nue-text: #e6ebf2;
     --nue-text-soft: #9aa8b8;
     --nue-danger: #f07b7b;
+    --nue-diagnostic: #f2c66d;
     --nue-success: #67d7a3;
     --nue-shell-bg:
       radial-gradient(circle at 18% -22%, rgba(63, 102, 213, 0.28), transparent 52%),
@@ -346,6 +387,10 @@
 }
 
 @media (max-width: 640px) {
+  .nue-playground {
+    --nue-output-height: 180px;
+  }
+
   .nue-playground__limits {
     grid-template-columns: 1fr;
   }
