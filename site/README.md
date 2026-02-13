@@ -15,6 +15,12 @@ npm run dev
 npm run build
 ```
 
+For project pages (`https://<user>.github.io/<repo>/`), set `PUBLIC_SITE_BASE`:
+
+```bash
+PUBLIC_SITE_BASE=/nue-lang.com/ npm run build
+```
+
 ### Build with theme
 
 Set `PUBLIC_THEME` at build time.
@@ -28,7 +34,9 @@ PUBLIC_THEME=signal npm run build
 
 If omitted, `signal` is used.
 
-When deploying (for example to GitHub Pages), publish this `site/` directory only.
+When deploying with GitHub Pages via this repository, use `.github/workflows/deploy.yml`.
+The workflow publishes `site/dist` and sets `PUBLIC_SITE_BASE` automatically with
+`actions/configure-pages`.
 
 ## Home Playground Embed
 

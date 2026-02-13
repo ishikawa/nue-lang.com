@@ -3,5 +3,7 @@ import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 
 export default defineConfig({
+  output: "static",
+  base: process.env.PUBLIC_SITE_BASE || "/",
   integrations: [mdx(), react()]
 });
