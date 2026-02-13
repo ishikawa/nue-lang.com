@@ -58,7 +58,7 @@
 .nue-playground__layout {
   display: grid;
   gap: 0.9rem;
-  grid-template-columns: 1.08fr 0.92fr;
+  grid-template-columns: minmax(400px, 1.32fr) minmax(0, 0.68fr);
 }
 
 .nue-playground__panel {
@@ -117,6 +117,7 @@
   font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
   font-size: 0.9rem;
   line-height: 1.48;
+  overflow-x: hidden;
 }
 
 .nue-playground__editor-fallback {

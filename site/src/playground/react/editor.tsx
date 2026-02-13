@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { ComponentType, ReactNode } from "react";
+import { EditorView } from "@codemirror/view";
 import { nueLanguage } from "./nueLanguage";
 
 export interface NueEditorProps {
@@ -23,6 +24,7 @@ interface CodeMirrorLikeProps {
     highlightActiveLine?: boolean;
     foldGutter?: boolean;
     autocompletion?: boolean;
+    lineWrapping?: boolean;
   };
   onChange: (value: string) => void;
 }
@@ -31,7 +33,10 @@ export function defaultNueEditorRenderer(props: NueEditorProps): ReactNode {
   return <CodeMirrorEditor {...props} />;
 }
 
-const NUE_CODEMIRROR_EXTENSIONS: readonly unknown[] = [nueLanguage];
+const NUE_CODEMIRROR_EXTENSIONS: readonly unknown[] = [
+  nueLanguage,
+  EditorView.lineWrapping,
+];
 
 function CodeMirrorEditor(props: NueEditorProps) {
   const [codeMirror, setCodeMirror] =
