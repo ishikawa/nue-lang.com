@@ -32,21 +32,7 @@ import NuePlaygroundIsland from "../components/NuePlaygroundIsland";
   </section>
 
   <section class="playground-panel" aria-labelledby="playground-title">
-    <p class="eyebrow">Playground</p>
-    <h2 id="playground-title">Run Nue directly in the browser</h2>
-    <p class="playground-copy">
-      I ship this playground inside this website repository and run it as an
-      Astro React island.
-    </p>
-    <div class="playground-host">
-      <NuePlaygroundIsland client:load />
-    </div>
-    <p class="fine-print">
-      If runtime initialization fails, set
-      <code>PUBLIC_PLAYGROUND_WASM_MODULE_URL</code> to the wasm module URL
-      (for local dev, typically
-      <code>http://localhost:4173/pkg/nue_wasm.js</code>).
-    </p>
+    <NuePlaygroundIsland client:load />
   </section>
 
   <section class="actions" aria-label="Primary actions">

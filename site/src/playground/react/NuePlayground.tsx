@@ -97,13 +97,6 @@ export function NuePlayground(props: NuePlaygroundProps) {
     <section
       className={["nue-playground", props.className].filter(Boolean).join(" ")}
     >
-      <header className="nue-playground__header">
-        <h2>{props.title ?? "Nue Playground"}</h2>
-        <p>
-          {props.subtitle ?? "Run Nue code in-browser via wasm + Web Worker."}
-        </p>
-      </header>
-
       <div className="nue-playground__layout">
         <div className="nue-playground__panel">
           {props.examples && props.examples.length > 0 ? (

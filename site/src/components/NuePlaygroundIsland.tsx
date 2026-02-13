@@ -67,8 +67,6 @@ export default function NuePlaygroundIsland() {
     <NuePlayground
       createWorker={createWorker}
       examples={EXAMPLES}
-      title="Nue Playground"
-      subtitle="Run Nue code in-browser via WebAssembly + Web Worker."
     />
   );
 }
