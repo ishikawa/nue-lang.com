@@ -37,6 +37,7 @@ If omitted, `signal` is used.
 When deploying with GitHub Pages via this repository, use `.github/workflows/deploy.yml`.
 The workflow publishes `site/dist` and sets `PUBLIC_SITE_BASE` automatically with
 `actions/configure-pages`.
+Custom domain mapping is managed by `public/CNAME`.
 
 ## Home Playground Embed
 
