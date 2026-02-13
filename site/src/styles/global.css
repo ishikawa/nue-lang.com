@@ -14,8 +14,6 @@
   --font-code:
     "JetBrains Mono", "SFMono-Regular", Menlo, Monaco, Consolas,
     "Liberation Mono", monospace;
-  --inline-code-bg: #eef1f4;
-  --inline-code-border: rgba(76, 90, 107, 0.3);
 }
 
 *,
@@ -34,6 +32,7 @@ body {
   font-family: var(--font-body);
   color: var(--ink);
   background: var(--bg-base);
+  color-scheme: light;
   line-height: 1.45;
   position: relative;
   overflow-x: hidden;
@@ -243,7 +242,7 @@ h2 {
   margin-top: 0.95rem;
   border-radius: 16px;
   border: 1px solid var(--card-edge);
-  background: rgba(255, 255, 255, 0.32);
+  background: var(--playground-host-bg, rgba(255, 255, 255, 0.32));
   padding: 0.7rem;
 }
 
@@ -301,8 +300,9 @@ code {
 }
 
 code {
-  background: var(--inline-code-bg);
-  border: 1px solid var(--inline-code-border);
+  background: var(--inline-code-bg, #eef1f4);
+  border: 1px solid var(--inline-code-border, rgba(76, 90, 107, 0.3));
+  color: var(--inline-code-ink, #14364f);
   border-radius: 8px;
   padding: 0.08rem 0.34rem;
 }
@@ -310,6 +310,7 @@ code {
 pre code {
   background: transparent;
   border: 0;
+  color: inherit;
   border-radius: 0;
   padding: 0;
 }
@@ -356,7 +357,8 @@ pre code {
   flex: 1 1 250px;
   border-radius: 999px;
   border: 1px solid var(--card-edge);
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--field-bg, rgba(255, 255, 255, 0.85));
+  color: var(--ink);
   min-height: 2.5rem;
   padding: 0 0.9rem;
   font: inherit;
@@ -418,6 +420,37 @@ pre code {
 .doc-content pre code {
   background: transparent;
   padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    color-scheme: dark;
+  }
+
+  [data-theme="signal"] .feature-panel .em1 {
+    color: #ffb89b;
+    background: rgba(255, 126, 73, 0.18);
+  }
+
+  [data-theme="signal"] .feature-panel .em2 {
+    color: #f6b4d4;
+    background: rgba(187, 81, 139, 0.2);
+  }
+
+  [data-theme="signal"] .feature-panel .em3 {
+    color: #98e4c0;
+    background: rgba(58, 150, 104, 0.2);
+  }
+
+  [data-theme="signal"] .feature-panel .em4 {
+    color: #9ec3ff;
+    background: rgba(61, 122, 212, 0.2);
+  }
+
+  [data-theme="signal"] .feature-panel .em5 {
+    color: #f4d596;
+    background: rgba(164, 132, 52, 0.22);
+  }
 }
 
 @media (max-width: 720px) {
