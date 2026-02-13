@@ -56,6 +56,9 @@ export function NuePlayground(props: NuePlaygroundProps) {
     if (playground.status === "running") {
       return "Executing in worker...";
     }
+    if (playground.status === "formatting") {
+      return "Formatting source...";
+    }
     if (playground.status === "error") {
       return playground.error ?? "Execution failed";
     }
@@ -84,6 +87,10 @@ export function NuePlayground(props: NuePlaygroundProps) {
     if (result && props.onRunResult) {
       props.onRunResult(result);
     }
+  };
+
+  const format = async () => {
+    await playground.format();
   };
 
   return (
@@ -184,6 +191,18 @@ export function NuePlayground(props: NuePlaygroundProps) {
               }
             >
               Run
+            </button>
+            <button
+              type="button"
+              className="ghost"
+              onClick={() => {
+                void format();
+              }}
+              disabled={
+                playground.status === "initializing" || playground.isRunning
+              }
+            >
+              Format
             </button>
             <button
               type="button"

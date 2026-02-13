@@ -8,6 +8,8 @@ export type {
   PlaygroundEventKind,
   PlaygroundPosition,
   PlaygroundRange,
+  PlaygroundFormatResult,
+  PlaygroundFormatStatus,
   PlaygroundRunLimits,
   PlaygroundRunRequest,
   PlaygroundRunResult,

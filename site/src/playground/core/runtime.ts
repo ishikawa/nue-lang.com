@@ -2,11 +2,13 @@ import type {
   PlaygroundDiagnostic,
   PlaygroundDiagnosticNote,
   PlaygroundEvent,
+  PlaygroundFormatResult,
+  PlaygroundFormatStatus,
+  PlaygroundRange,
   PlaygroundRunLimits,
   PlaygroundRunRequest,
   PlaygroundRunResult,
   PlaygroundRunStatus,
-  PlaygroundRange,
   WasmModuleLoader,
   WasmPlaygroundBindings,
 } from "./types";
@@ -18,6 +20,7 @@ export interface PlaygroundRuntimeOptions {
 export interface PlaygroundRuntime {
   init: () => Promise<void>;
   run: (request: PlaygroundRunRequest) => Promise<PlaygroundRunResult>;
+  format: (source: string) => Promise<PlaygroundFormatResult>;
 }
 
 const STATUS_VALUES = new Set<PlaygroundRunStatus>([
@@ -26,6 +29,12 @@ const STATUS_VALUES = new Set<PlaygroundRunStatus>([
   "runtime_error",
   "loader_error",
   "resource_limit_exceeded",
+]);
+
+const FORMAT_STATUS_VALUES = new Set<PlaygroundFormatStatus>([
+  "success",
+  "parse_error",
+  "runtime_error",
 ]);
 
 export function createPlaygroundRuntime(options: PlaygroundRuntimeOptions): PlaygroundRuntime {
@@ -65,7 +74,14 @@ export function createPlaygroundRuntime(options: PlaygroundRuntimeOptions): Play
     return normalizeResult(rawResult);
   };
 
-  return { init, run };
+  const format = async (source: string): Promise<PlaygroundFormatResult> => {
+    await init();
+    const bindings = await getBindings();
+    const rawResult = bindings.format_playground(source);
+    return normalizeFormatResult(rawResult);
+  };
+
+  return { init, run, format };
 }
 
 function sanitizeLimits(limits?: PlaygroundRunLimits) {
@@ -101,9 +117,27 @@ function normalizeResult(raw: unknown): PlaygroundRunResult {
   };
 }
 
+function normalizeFormatResult(raw: unknown): PlaygroundFormatResult {
+  const object = toObject(raw);
+
+  return {
+    status: parseFormatStatus(object.status),
+    formatted: parseString(object.formatted),
+    changed: parseBoolean(object.changed),
+    message: parseOptionalString(object.message),
+  };
+}
+
 function parseStatus(value: unknown): PlaygroundRunStatus {
   if (typeof value === "string" && STATUS_VALUES.has(value as PlaygroundRunStatus)) {
     return value as PlaygroundRunStatus;
+  }
+  return "runtime_error";
+}
+
+function parseFormatStatus(value: unknown): PlaygroundFormatStatus {
+  if (typeof value === "string" && FORMAT_STATUS_VALUES.has(value as PlaygroundFormatStatus)) {
+    return value as PlaygroundFormatStatus;
   }
   return "runtime_error";
 }
@@ -198,6 +232,10 @@ function parseOptionalNumber(value: unknown): number | null {
     return null;
   }
   return value;
+}
+
+function parseBoolean(value: unknown): boolean {
+  return typeof value === "boolean" ? value : false;
 }
 
 function parseNumber(value: unknown): number {

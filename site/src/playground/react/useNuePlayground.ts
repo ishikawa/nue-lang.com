@@ -1,11 +1,15 @@
-import type { PlaygroundRunLimits, PlaygroundRunResult } from "../core";
+import type {
+  PlaygroundFormatResult,
+  PlaygroundRunLimits,
+  PlaygroundRunResult,
+} from "../core";
 import {
   PlaygroundRunCancelledError,
   PlaygroundWorkerClient,
 } from "../worker";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export type PlaygroundUiStatus = "initializing" | "ready" | "running" | "error";
+export type PlaygroundUiStatus = "initializing" | "ready" | "running" | "formatting" | "error";
 
 export interface UseNuePlaygroundOptions {
   createWorker: () => Worker;
@@ -28,6 +32,7 @@ export interface UseNuePlaygroundResult {
   error: string | null;
   result: PlaygroundRunResult | null;
   run: () => Promise<PlaygroundRunResult | null>;
+  format: () => Promise<PlaygroundFormatResult | null>;
   cancel: () => void;
   reset: () => void;
 }
@@ -110,6 +115,46 @@ export function useNuePlayground(options: UseNuePlaygroundOptions): UseNuePlaygr
     }
   }, [limits, source]);
 
+  const format = useCallback(async (): Promise<PlaygroundFormatResult | null> => {
+    const client = clientRef.current;
+    if (!client) {
+      setStatus("error");
+      setError("Playground worker is not available.");
+      return null;
+    }
+
+    setError(null);
+    setResult(null);
+    setStatus("formatting");
+
+    try {
+      const next = await client.format(source);
+
+      if (next.status === "success") {
+        setSource(next.formatted);
+        setStatus("ready");
+        setResult(null);
+        return next;
+      }
+
+      setStatus("error");
+      setResult(null);
+      setError(next.message ?? "Playground formatter failed.");
+      return next;
+    } catch (formatErrorValue: unknown) {
+      if (formatErrorValue instanceof PlaygroundRunCancelledError) {
+        setStatus("ready");
+        setResult(null);
+        return null;
+      }
+
+      setStatus("error");
+      setResult(null);
+      setError(formatError(formatErrorValue));
+      return null;
+    }
+  }, [source]);
+
   const cancel = useCallback(() => {
     const client = clientRef.current;
     if (!client) {
@@ -135,10 +180,11 @@ export function useNuePlayground(options: UseNuePlaygroundOptions): UseNuePlaygr
     setLimits,
     setLimit,
     status,
-    isRunning: status === "running",
+    isRunning: status === "running" || status === "formatting",
     error,
     result,
     run,
+    format,
     cancel,
     reset,
   };

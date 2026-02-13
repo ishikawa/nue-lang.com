@@ -32,6 +32,15 @@ export interface PlaygroundDiagnostic {
   notes: PlaygroundDiagnosticNote[];
 }
 
+export type PlaygroundFormatStatus = "success" | "parse_error" | "runtime_error";
+
+export interface PlaygroundFormatResult {
+  status: PlaygroundFormatStatus;
+  formatted: string;
+  changed: boolean;
+  message: string | null;
+}
+
 export interface PlaygroundEvent {
   kind: PlaygroundEventKind;
   text: string;
@@ -68,6 +77,7 @@ export interface WasmPlaygroundBindings {
     maxOutputLines?: number,
     maxMemoryBytes?: number,
   ) => unknown;
+  format_playground: (source: string) => unknown;
 }
 
 export type WasmModuleLoader = () => Promise<WasmPlaygroundBindings>;

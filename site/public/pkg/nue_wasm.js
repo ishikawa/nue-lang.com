@@ -1,6 +1,18 @@
 /* @ts-self-types="./nue_wasm.d.ts" */
 
 /**
+ * Formats one source string using the shared formatter pipeline.
+ * @param {string} source
+ * @returns {any}
+ */
+export function format_playground(source) {
+    const ptr0 = passStringToWasm0(source, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.format_playground(ptr0, len0);
+    return ret;
+}
+
+/**
  * Runs one Nue source file in the browser-friendly playground pipeline.
  *
  * This function is the wasm bridge used by `web/main.js`. It returns a plain

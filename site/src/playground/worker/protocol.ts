@@ -1,4 +1,5 @@
 import type {
+  PlaygroundFormatResult,
   PlaygroundRunRequest,
   PlaygroundRunResult,
   WasmModuleLoader,
@@ -18,6 +19,12 @@ export interface PlaygroundWorkerRunMessage {
   request: PlaygroundRunRequest;
 }
 
+export interface PlaygroundWorkerFormatMessage {
+  kind: "format";
+  requestId: string;
+  source: string;
+}
+
 export interface PlaygroundWorkerCancelMessage {
   kind: "cancel";
   requestId?: string;
@@ -26,6 +33,7 @@ export interface PlaygroundWorkerCancelMessage {
 export type PlaygroundWorkerMessage =
   | PlaygroundWorkerInitMessage
   | PlaygroundWorkerRunMessage
+  | PlaygroundWorkerFormatMessage
   | PlaygroundWorkerCancelMessage;
 
 export interface PlaygroundWorkerReadyEvent {
@@ -36,6 +44,12 @@ export interface PlaygroundWorkerResultEvent {
   kind: "result";
   requestId: string;
   result: PlaygroundRunResult;
+}
+
+export interface PlaygroundWorkerFormatResultEvent {
+  kind: "format-result";
+  requestId: string;
+  result: PlaygroundFormatResult;
 }
 
 export interface PlaygroundWorkerErrorEvent {
@@ -52,5 +66,6 @@ export interface PlaygroundWorkerCancelledEvent {
 export type PlaygroundWorkerEvent =
   | PlaygroundWorkerReadyEvent
   | PlaygroundWorkerResultEvent
+  | PlaygroundWorkerFormatResultEvent
   | PlaygroundWorkerErrorEvent
   | PlaygroundWorkerCancelledEvent;

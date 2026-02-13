@@ -28,6 +28,26 @@ export function registerPlaygroundWorker(options: PlaygroundWorkerOptions): void
       return;
     }
 
+    if (message.kind === "format") {
+      void runtime
+        .format(message.source)
+        .then((result) => {
+          postMessage({
+            kind: "format-result",
+            requestId: message.requestId,
+            result,
+          });
+        })
+        .catch((error: unknown) => {
+          postMessage({
+            kind: "error",
+            requestId: message.requestId,
+            message: formatError(error),
+          });
+        });
+      return;
+    }
+
     void runtime
       .run(message.request)
       .then((result) => {
