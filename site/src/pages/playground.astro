@@ -10,7 +10,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <a class="brand" href="/">NUE</a>
     <nav class="topnav" aria-label="Main navigation">
       <a href="/">Home</a>
-      <a href="/docs/getting-started">Docs</a>
+      <a href="/docs/">Docs</a>
     </nav>
   </header>
 
@@ -18,24 +18,23 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <p class="eyebrow">Playground</p>
     <h1>WASM + React Playground</h1>
     <p class="lead">
-      Playground implementation is maintained outside this website repository
-      and tracks compiler behavior through browser-focused experiments.
+      I bundle the playground implementation in this repository so deployments
+      stay self-contained.
     </p>
   </section>
 
   <section class="feature-panel">
-    <h2>Current location</h2>
-    <p class="path-chip"><code>$HOME/Developer/Workspace/nue/web</code></p>
+    <h2>Runtime module</h2>
+    <p class="path-chip"><code>site/public/pkg/nue_wasm.js</code></p>
     <p>
-      Keep official site content in <code>site/</code>. Keep Playground runtime
-      code in the path above.
+      Default wasm assets are bundled under <code>site/public/pkg</code>. You
+      can override the module URL with
+      <code>PUBLIC_PLAYGROUND_WASM_MODULE_URL</code> when needed.
     </p>
   </section>
 
   <section class="actions" aria-label="Navigation actions">
-    <a class="button button-primary" href="/docs/getting-started"
-      >Open setup docs</a
-    >
+    <a class="button button-primary" href="/docs/">Open docs</a>
     <a class="button button-ghost" href="/">Back to landing page</a>
   </section>
 </BaseLayout>

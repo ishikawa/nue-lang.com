@@ -32,3 +32,18 @@ PUBLIC_THEME=signal npm run build
 ```
 
 If `PUBLIC_THEME` is omitted, `signal` is used.
+
+## Home Playground Embed
+
+Home embeds the WASM playground as an Astro React island.
+The required runtime files are committed in this repository, so deployment does
+not depend on `$HOME/Developer/Workspace/nue/web`.
+
+- Runtime module default: `/pkg/nue_wasm.js` (bundled in `site/public/pkg`)
+- Override at build/dev time with `PUBLIC_PLAYGROUND_WASM_MODULE_URL`
+
+```bash
+cd site
+PUBLIC_PLAYGROUND_WASM_MODULE_URL=http://localhost:4173/pkg/nue_wasm.js npm run dev
+PUBLIC_PLAYGROUND_WASM_MODULE_URL=https://playground.example.com/pkg/nue_wasm.js npm run build
+```

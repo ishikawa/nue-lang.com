@@ -181,6 +181,7 @@ h2 {
 .feature-panel .em3,
 .feature-panel .em4,
 .feature-panel .em5 {
+  font-weight: 700;
 }
 
 [data-theme="signal"] .feature-panel .em1,
@@ -217,6 +218,33 @@ h2 {
 [data-theme="signal"] .feature-panel .em5 {
   color: #8f6900;
   background: #fff3c9;
+}
+
+.playground-panel {
+  margin-top: 1.2rem;
+  border: 1px solid var(--card-edge);
+  border-radius: 20px;
+  padding: 1.15rem 1.25rem;
+  background: var(--card);
+  backdrop-filter: blur(30px);
+  box-shadow: var(--panel-shadow);
+}
+
+.playground-panel h2 {
+  margin-top: 0.5rem;
+}
+
+.playground-copy {
+  margin: 0.8rem 0 0;
+  color: var(--ink-soft);
+}
+
+.playground-host {
+  margin-top: 0.95rem;
+  border-radius: 16px;
+  border: 1px solid var(--card-edge);
+  background: rgba(255, 255, 255, 0.32);
+  padding: 0.7rem;
 }
 
 .actions {
@@ -409,6 +437,10 @@ pre code {
   }
 
   .feature-panel {
+    padding: 1rem;
+  }
+
+  .playground-panel {
     padding: 1rem;
   }
 }
