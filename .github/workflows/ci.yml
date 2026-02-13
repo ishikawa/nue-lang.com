@@ -33,5 +33,13 @@ jobs:
       - name: Install dependencies
         run: npm ci --include=optional
 
+      - name: Work around npm optional dependency bug (Rollup native)
+        run: |
+          ROLLUP_NATIVE_PKG='@rollup/rollup-linux-x64-gnu'
+          if [ "$(uname -m)" = "aarch64" ]; then
+            ROLLUP_NATIVE_PKG='@rollup/rollup-linux-arm64-gnu'
+          fi
+          npm install --no-save "$ROLLUP_NATIVE_PKG"
+
       - name: Build (includes astro check)
         run: npm run build
