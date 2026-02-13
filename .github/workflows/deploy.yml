@@ -51,10 +51,19 @@ jobs:
           fi
           npm install --no-save "$ROLLUP_NATIVE_PKG"
 
+      - name: Resolve site base
+        id: site_base
+        run: |
+          if [ -s public/CNAME ]; then
+            echo "value=/" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=${{ steps.pages.outputs.base_path }}" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Build site
         run: npm run build
         env:
-          PUBLIC_SITE_BASE: ${{ steps.pages.outputs.base_path }}
+          PUBLIC_SITE_BASE: ${{ steps.site_base.outputs.value }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
