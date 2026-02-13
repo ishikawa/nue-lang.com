@@ -36,7 +36,7 @@ export function NuePlayground(props: NuePlaygroundProps) {
   const initialSource =
     props.initialSource ??
     firstExample?.source ??
-    "def main() -> Int32 do\n  0\nend\n";
+    "def main() -> Int32 do\n    0\nend\n";
   const renderEditor = props.renderEditor ?? defaultNueEditorRenderer;
   const initialLimits = useMemo(
     () => mergeRunLimits(DEFAULT_PLAYGROUND_RUN_LIMITS, props.initialLimits),
