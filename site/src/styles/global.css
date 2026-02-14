@@ -188,6 +188,7 @@ h2 {
 [data-theme="signal"] .feature-panel .em3,
 [data-theme="signal"] .feature-panel .em4,
 [data-theme="signal"] .feature-panel .em5 {
+  font-weight: normal;
   border-radius: 8px;
   padding: 0.05rem 0.32rem;
   box-decoration-break: clone;
