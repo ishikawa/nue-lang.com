@@ -15,8 +15,8 @@ export function format_playground(source) {
 /**
  * Runs one Nue source file in the browser-friendly playground pipeline.
  *
- * This function is the wasm bridge used by `web/main.js`. It returns a plain
- * JavaScript object so the frontend can render status, diagnostics, and
+ * This function is the wasm bridge for the web playground runtime. It returns a
+ * plain JavaScript object so the frontend can render status, diagnostics, and
  * emitted runtime events without any backend service.
  * @param {string} source
  * @param {number | null} [timeout_ms]
