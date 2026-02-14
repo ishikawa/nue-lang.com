@@ -1,0 +1,8 @@
+# Start with the smallest runnable Nue program.
+# It lets you confirm the environment and basic syntax in seconds.
+from std::io import puts
+
+def main() -> Int32 do
+    puts("Hello, World!")
+    0
+end

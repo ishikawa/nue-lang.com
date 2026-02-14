@@ -1,0 +1,26 @@
+# Model a config-like struct with field defaults and methods.
+# It keeps practical state modeling concise and readable.
+struct RetryPolicy do
+    max_retry: Int32 = 3
+    base_delay_ms: Int32 = 50
+    timeout_ms: Int32
+
+    def budget_ms(self) -> Int32 do
+        self.timeout_ms + self.base_delay_ms * self.max_retry
+    end
+end
+
+def main() -> Int32 do
+    policy1 = RetryPolicy{ timeout_ms: 200, max_retry: 2 }
+    assert! policy1.base_delay_ms == 50
+    assert! policy1.budget_ms() == 300
+
+    policy2 = RetryPolicy{ timeout_ms: 100 }
+    assert! policy2.max_retry == 3
+    assert! policy2.budget_ms() == 250
+
+    policy3 = { timeout_ms: 150, base_delay_ms: 10 }
+    assert! policy3.max_retry == 3
+    assert! policy3.budget_ms() == 180
+    0
+end

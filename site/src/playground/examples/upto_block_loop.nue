@@ -1,0 +1,23 @@
+# This example shows block-based iteration with practical control flow.
+# You can keep loop logic concise and still use continue/break where it matters.
+from core::iterable import upto
+from std::io import puts
+
+def main() -> Int32 do
+    total = 0
+    1.upto(10) do |i| -> Void
+        if i == 2 or i == 4
+            continue
+        end
+
+        if i > 7
+            break
+        end
+
+        set total = total + i
+    end
+
+    assert! total == 22
+    puts("total=22")
+    0
+end

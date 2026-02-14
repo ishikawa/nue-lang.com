@@ -1,0 +1,24 @@
+# Define an enum and evaluate it with pattern matching.
+# Branching logic stays explicit and type-driven.
+enum Expr
+    case Int(Int32)
+    case Add(Int32, Int32)
+    case Mul(Int32, Int32)
+end
+
+def eval(e: Expr) -> Int32 do
+    case e
+    when ::Int(n)
+        copy n
+    when ::Add(a, b)
+        a + b
+    when ::Mul(a, b)
+        a * b
+    end
+end
+
+def main() -> Int32 do
+    assert! eval(Expr::Add(1, 2)) == 3
+    assert! eval(Expr::Mul(2, 3)) == 6
+    0
+end
