@@ -1,0 +1,17 @@
+# This example shows UFCS (Uniform Function Call Syntax) chaining.
+# You get pipeline-like readability while keeping free functions composable.
+def square(n: Int32) -> Int32 do
+    n * n
+end
+
+def add(a: Int32, b: Int32) -> Int32 do
+    a + b
+end
+
+def main() -> Int32 do
+    assert! 5.square() == 25
+    assert! 5.square().square() == 625
+    assert! 10.add(32) == 42
+    assert! 2.add(3).square() == 25
+    0
+end

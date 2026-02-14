@@ -41,5 +41,8 @@ jobs:
           fi
           npm install --no-save "$ROLLUP_NATIVE_PKG"
 
+      - name: Validate playground examples
+        run: npm run check:examples
+
       - name: Build (includes astro check)
         run: npm run build

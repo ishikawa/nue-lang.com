@@ -1,0 +1,38 @@
+# Record defaults and keyword arguments for the final parameter.
+# This keeps options-style APIs explicit and concise.
+from std::io import puts
+
+struct RuntimeOptions do
+    timeout_ms: Int32
+    retry: Int32
+    verbose: Bool
+end
+
+def run_with_options(
+    base: Int32,
+    own opt: { timeout_ms: Int32 = 30, retry: Int32 = 3, verbose: Bool = false },
+) -> Int32 do
+    typed = RuntimeOptions{ ...move opt }
+    bonus = 0
+    if typed.verbose
+        set bonus = 100
+    end
+    base + typed.timeout_ms + typed.retry + bonus
+end
+
+def main() -> Int32 do
+    # Keyword arguments are sugar for constructing the final record argument.
+    score1 = run_with_options(1, timeout_ms: 10)
+    score2 = run_with_options(1, timeout_ms: 10, retry: 1)
+    score3 = run_with_options(1, retry: 2, verbose: true)
+    assert! score1 == 14
+    assert! score2 == 12
+    assert! score3 == 133
+    puts("keyword sugar => 14, 12, 133")
+
+    # Explicit record literal form remains available.
+    score4 = run_with_options(1, { timeout_ms: 20, retry: 1, verbose: false })
+    assert! score4 == 22
+    puts("explicit record => 22")
+    0
+end
