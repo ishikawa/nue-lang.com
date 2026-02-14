@@ -45,13 +45,13 @@ from core::iterable import upto
 from std::io import puts
 
 def main() -> Int32 do
-    total: Int32 = 0
+    total = 0
     1.upto(10) do |i| -> Void
-        if i == 2 or i == 4 then
+        if i == 2 or i == 4
             continue
         end
 
-        if i > 7 then
+        if i > 7
             break
         end
 
@@ -73,7 +73,7 @@ from std::io import puts
 
 # A simple implementation of the Fibonacci sequence using recursion.
 def fibonacci(n: Int32) -> Int32
-    if n <= 1 then
+    if n <= 1
         copy n
     else
         fibonacci(n - 1) + fibonacci(n - 2)
@@ -100,9 +100,12 @@ end
 
 def eval(e: Expr) -> Int32 do
     case e
-    when ::Int(n) then copy n
-    when ::Add(a, b) then a + b
-    when ::Mul(a, b) then a * b
+    when ::Int(n)
+        copy n
+    when ::Add(a, b)
+        a + b
+    when ::Mul(a, b)
+        a * b
     end
 end
 
@@ -137,7 +140,7 @@ def main() -> Int32 do
     assert! policy2.max_retry == 3
     assert! policy2.budget_ms() == 250
 
-    policy3: RetryPolicy = { timeout_ms: 150, base_delay_ms: 10 }
+    policy3 = { timeout_ms: 150, base_delay_ms: 10 }
     assert! policy3.max_retry == 3
     assert! policy3.budget_ms() == 180
     0
@@ -162,8 +165,8 @@ def run_with_options(
     own opt: { timeout_ms: Int32 = 30, retry: Int32 = 3, verbose: Bool = false },
 ) -> Int32 do
     typed = RuntimeOptions{ ...move opt }
-    bonus: Int32 = 0
-    if typed.verbose then
+    bonus = 0
+    if typed.verbose
         set bonus = 100
     end
     base + typed.timeout_ms + typed.retry + bonus
