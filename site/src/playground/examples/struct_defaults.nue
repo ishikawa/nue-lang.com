@@ -19,7 +19,7 @@ def main() -> Int32 do
     assert! policy2.max_retry == 3
     assert! policy2.budget_ms() == 250
 
-    policy3 = { timeout_ms: 150, base_delay_ms: 10 }
+    policy3 = RetryPolicy{ timeout_ms: 150, base_delay_ms: 10 }
     assert! policy3.max_retry == 3
     assert! policy3.budget_ms() == 180
     0
